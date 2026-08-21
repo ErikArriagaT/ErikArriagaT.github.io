@@ -1,0 +1,233 @@
+/* --- ESTILOS GENERALES (BASE) --- */
+:root {
+    /* Paleta de colores para un tono profesional/ciberseguro */
+    --bg-color: #f4f7f6; /* Fondo claro y limpio */
+    --text-color: #2c3e50; /* Texto oscuro y legible */
+    --primary-color: #27ae60; /* Verde vibrante (seguridad, "hack") */
+    --primary-dark: #1e8449; /* Verde oscuro para hover */
+    --header-bg: #2c3e50; /* Fondo oscuro para el header (más profesional) */
+    --header-text: #ecf0f1; /* Texto claro para el header */
+    --card-bg: #ffffff; /* Fondo blanco para las secciones de contenido */
+    --card-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    --nav-active: #2ecc71;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Tipografía limpia */
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* --- ENCABEZADO (HEADER) --- */
+header {
+    background-color: var(--header-bg);
+    color: var(--header-text);
+    padding: 30px 20px 0 20px; /* Padding superior para el logo */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    position: relative; /* Para el logo absoluto si se desea */
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--primary-color);
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.user-info h1 {
+    font-size: 2.2rem;
+    margin: 0;
+    color: var(--header-text);
+}
+
+.user-info .alias {
+    font-style: italic;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.user-info p {
+    margin: 5px 0;
+    font-size: 0.95rem;
+}
+
+/* MENÚ DE NAVEGACIÓN */
+nav {
+    background-color: rgba(255,255,255,0.05); /* Fondo muy sutil */
+    padding: 10px 0;
+    margin-top: 20px;
+    width: 100%;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center; /* Centrar el menú */
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: var(--header-text);
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: var(--primary-color);
+}
+
+nav ul li a.active {
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
+/* --- CUERPO PRINCIPAL (MAIN) --- */
+main {
+    flex: 1;
+    padding: 40px 20px;
+    max-width: 1100px;
+    margin: 0 auto; /* Centrar contenido */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* SECCIONES (CARDS) */
+section {
+    background-color: var(--card-bg);
+    padding: 30px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    box-shadow: var(--card-shadow);
+    border-left: 5px solid transparent; /* Efecto hacker en hover */
+    transition: border-left 0.3s;
+}
+
+section:hover {
+    border-left: 5px solid var(--primary-color);
+}
+
+h2 {
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+#tecnica ul, .profile-content ul {
+    list-style-type: none; /* Estilo de lista más moderno */
+    padding: 0;
+}
+
+#tecnica li, .profile-content li {
+    background: #f9f9f9;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+/* FORMULARIO */
+#contacto form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box; /* Importante para que el padding no desborde */
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus, .form-group textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+button[type="submit"] {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    font-weight: bold;
+    align-self: flex-start;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: var(--primary-dark);
+}
+
+/* --- PIE DE PÁGINA (FOOTER) --- */
+footer {
+    background-color: var(--header-bg);
+    color: var(--header-text);
+    text-align: center;
+    padding: 20px;
+    margin-top: auto;
+    font-size: 0.9rem;
+}
+
+footer .logo {
+    border: none;
+    font-size: 1.1rem;
+}
+
+/* --- RESPONSIVIDAD BÁSICA --- */
+@media (max-width: 768px) {
+    header {
+        padding: 20px 15px;
+        text-align: center;
+    }
+    
+    .logo {
+        display: none; /* Opcional: Ocultar logo en móvil */
+    }
+
+    .user-info h1 {
+        font-size: 1.8rem;
+    }
+
+    nav ul {
+        flex-direction: column; /* Menú vertical en móvil */
+    }
+
+    nav ul li {
+        margin: 5px 0;
+    }
+}
