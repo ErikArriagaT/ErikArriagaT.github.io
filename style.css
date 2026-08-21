@@ -1,4 +1,8 @@
-/* --- PALETA DE COLORES HEXTECH (LoL) --- */
+/* =========================================================
+   PORTAFOLIO DE SEGURIDAD INFORMÁTICA - ESTILO HEXTECH (LoL)
+   ========================================================= */
+
+/* --- 1. PALETA DE COLORES HEXTECH --- */
 :root {
     --bg-color: #010a13;         /* Fondo súper oscuro (casi negro) */
     --text-color: #a09b8c;       /* Gris claro/dorado apagado para texto general */
@@ -6,22 +10,35 @@
     --primary-dark: #785a28;     /* Dorado oscuro para bordes */
     --header-bg: #091428;        /* Azul profundo de los paneles del cliente */
     --header-text: #f0e6d2;      /* Blanco perla para textos principales */
-    --cyan-glow: #0ac8b9;        /* Cyan brillante (tipo botón de JUGAR) */
-    --card-bg: #1e2328;          /* Fondo para las secciones inferiores */
-    --card-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    --cyan-glow: #0ac8b9;        /* Cyan brillante */
 }
 
-/* Fondo general de la página para que encaje con el header */
+/* --- 2. FONDO ANIMADO Y CUERPO PRINCIPAL --- */
 body {
-    background-color: var(--bg-color);
+    /* Degradado azul marino oscuro animado */
+    background: linear-gradient(-45deg, #010a13, #0a1428, #051421, #010a13);
+    background-size: 400% 400%;
+    animation: hextechFog 20s ease infinite; /* Movimiento suave continuo */
+    
     color: var(--text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-/* --- ENCABEZADO (HEXTECH HEADER) --- */
+@keyframes hextechFog {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* --- 3. ENCABEZADO (HEXTECH HEADER) --- */
 .hextech-header {
     background: linear-gradient(to right, #091428, #0a1428, #050b14);
     border-bottom: 2px solid var(--primary-dark);
-    box-shadow: 0 0 15px rgba(10, 200, 185, 0.1); /* Brillo cyan muy sutil */
+    box-shadow: 0 0 15px rgba(10, 200, 185, 0.1);
     display: flex;
     flex-direction: column;
 }
@@ -72,7 +89,7 @@ body {
 
 .lol-nav ul li a.active {
     color: var(--header-text);
-    border-bottom: 3px solid var(--primary-color); /* Línea dorada debajo del menú activo */
+    border-bottom: 3px solid var(--primary-color);
 }
 
 /* Panel de Información Compacto */
@@ -81,7 +98,8 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 20px 40px;
-    flex-wrap: wrap; /* Para que en celular no se rompa */
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
 .user-profile {
@@ -95,7 +113,8 @@ body {
     height: 60px;
     border: 2px solid var(--primary-color);
     border-radius: 50%;
-    background: url('https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/29.jpg') no-repeat center center / cover; /* Icono de prueba */
+    /* Simulando icono de invocador */
+    background: url('https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/29.jpg') no-repeat center center / cover; 
     position: relative;
     box-shadow: 0 0 10px rgba(200, 155, 60, 0.3);
 }
@@ -128,10 +147,9 @@ body {
 }
 
 .user-titles .tag {
-    color: var(--cyan-glow); /* Toque de color a tu alias */
+    color: var(--cyan-glow);
 }
 
-/* Estadísticas (Datos de la escuela) */
 .academic-stats {
     display: flex;
     gap: 30px;
@@ -155,4 +173,196 @@ body {
 .stat-value {
     font-size: 0.9rem;
     color: var(--header-text);
+}
+
+/* --- 4. CONTENEDOR PRINCIPAL CENTRALIZADO --- */
+main {
+    flex: 1;
+    padding: 40px 20px;
+    max-width: 900px; /* Centra y limita el ancho para leer mejor */
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Separación entre recuadros */
+}
+
+/* --- 5. RECUADROS DE CONTENIDO (CARDS HEXTECH) --- */
+section {
+    background-color: rgba(9, 20, 40, 0.65);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(200, 155, 60, 0.25);
+    padding: 35px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+section:hover {
+    border-color: rgba(200, 155, 60, 0.6);
+    box-shadow: 0 10px 30px rgba(10, 200, 185, 0.1);
+}
+
+/* Esquinas doradas decorativas */
+section::before, section::after {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border: 2px solid var(--primary-color);
+    transition: width 0.3s, height 0.3s;
+    opacity: 0.7;
+}
+
+section::before {
+    top: -1px; 
+    left: -1px;
+    border-right: none; 
+    border-bottom: none;
+}
+
+section::after {
+    bottom: -1px; 
+    right: -1px;
+    border-left: none; 
+    border-top: none;
+}
+
+section:hover::before, section:hover::after {
+    width: 25px;
+    height: 25px;
+    opacity: 1;
+}
+
+/* Estilos de texto internos */
+h2 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    border-bottom: 1px solid rgba(200, 155, 60, 0.2);
+    padding-bottom: 10px;
+    margin-top: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+p, li {
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+strong {
+    color: var(--header-text);
+}
+
+.profile-content ul, #tecnica ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.profile-content li, #tecnica li {
+    margin-bottom: 10px;
+}
+
+/* --- 6. FORMULARIO ESTILO LOL --- */
+#contacto form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--primary-color);
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 12px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(200, 155, 60, 0.3);
+    color: var(--header-text);
+    box-sizing: border-box;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.form-group input:focus, .form-group textarea:focus {
+    border-color: var(--cyan-glow);
+    outline: none;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+button[type="submit"] {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    padding: 12px 30px;
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-self: flex-start;
+}
+
+button[type="submit"]:hover {
+    background-color: var(--primary-color);
+    color: var(--bg-color);
+    box-shadow: 0 0 15px rgba(200, 155, 60, 0.4);
+}
+
+/* --- 7. PIE DE PÁGINA (FOOTER) --- */
+footer {
+    background-color: var(--header-bg);
+    border-top: 1px solid rgba(200, 155, 60, 0.2);
+    color: var(--text-color);
+    text-align: center;
+    padding: 20px;
+    margin-top: auto;
+    font-size: 0.85rem;
+}
+
+/* --- 8. RESPONSIVIDAD (MÓVILES) --- */
+@media (max-width: 768px) {
+    .top-bar {
+        flex-direction: column;
+        height: auto;
+        padding: 15px;
+        gap: 15px;
+    }
+    
+    .info-banner {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .user-profile {
+        flex-direction: column;
+    }
+    
+    .academic-stats {
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 20px;
+        width: 100%;
+    }
+
+    .stat-box {
+        border-left: none;
+        border-bottom: 1px solid rgba(200, 155, 60, 0.3);
+        padding-bottom: 10px;
+        align-items: center;
+    }
 }
