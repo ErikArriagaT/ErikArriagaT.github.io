@@ -366,6 +366,9 @@ footer {
         align-items: center;
     }
 
+
+}
+
  /* --- 9. ESTILOS PARA LAS PÁGINAS DE PARCIALES --- */
 .parcial-container {
     margin-top: 40px;
@@ -479,4 +482,3 @@ footer {
     margin: 0;
     font-size: 0.95rem;
 }   
-}
