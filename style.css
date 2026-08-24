@@ -113,8 +113,8 @@ body {
     height: 60px;
     border: 2px solid var(--primary-color);
     border-radius: 50%;
-    /* Simulando icono de invocador */
-    background: url('https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/29.jpg') no-repeat center center / cover; 
+    /* Tu foto real */
+    background: url('perfil.jpg') no-repeat center center / cover; 
     position: relative;
     box-shadow: 0 0 10px rgba(200, 155, 60, 0.3);
 }
