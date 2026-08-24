@@ -365,4 +365,118 @@ footer {
         padding-bottom: 10px;
         align-items: center;
     }
+
+ /* --- 9. ESTILOS PARA LAS PÁGINAS DE PARCIALES --- */
+.parcial-container {
+    margin-top: 40px;
+}
+
+.parcial-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.hex-title {
+    font-size: 3.5rem;
+    color: var(--header-text);
+    margin-bottom: 5px;
+    margin-top: 0;
+    text-shadow: 0 0 15px rgba(200, 155, 60, 0.4);
+}
+
+.hex-subtitle {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    font-style: italic;
+    margin-bottom: 25px;
+    margin-top: 0;
+}
+
+.hex-section-title {
+    font-size: 1rem;
+    color: var(--text-color);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(200, 155, 60, 0.2);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.back-link {
+    display: inline-block;
+    color: var(--cyan-glow);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.back-link:hover {
+    color: var(--header-text);
+    text-shadow: 0 0 10px var(--cyan-glow);
+}
+
+.activities-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Diseño de la Tarjeta de Actividad */
+.activity-card {
+    display: flex;
+    align-items: center;
+    background-color: rgba(9, 20, 40, 0.65);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(200, 155, 60, 0.25);
+    padding: 25px 30px;
+    text-decoration: none;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.activity-card:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 5px 25px rgba(10, 200, 185, 0.15);
+    transform: translateX(10px); /* Efecto interactivo: se mueve a la derecha al pasar el mouse */
+}
+
+/* Línea decorativa izquierda en las tarjetas */
+.activity-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background-color: var(--primary-color);
+    transition: background-color 0.3s;
+}
+
+.activity-card:hover::before {
+    background-color: var(--cyan-glow); /* La línea se vuelve cyan en hover */
+}
+
+.activity-number {
+    font-size: 3rem;
+    font-weight: bold;
+    color: rgba(200, 155, 60, 0.3);
+    margin-right: 35px;
+    font-style: italic;
+    font-family: Georgia, serif; /* Le da ese toque de libro antiguo/elegante */
+}
+
+.activity-info h4 {
+    margin: 0 0 8px 0;
+    color: var(--header-text);
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+}
+
+.activity-info p {
+    margin: 0;
+    font-size: 0.95rem;
+}   
 }
