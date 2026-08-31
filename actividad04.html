@@ -46,33 +46,33 @@
             <h2>Objetivos de la Práctica</h2>
             <ul>
                 <li>Comprender el funcionamiento de los ataques de ingeniería social, específicamente el robo de credenciales mediante <strong>phishing</strong>.</li>
-                <li>Utilizar el framework <strong>Social-Engineer Toolkit (SET)</strong> para clonar una página web legítima en un entorno controlado.</li>
-                <li>Demostrar la vulnerabilidad del factor humano y concientizar sobre la validación de URLs y certificados digitales en los navegadores.</li>
+                <li>Diseñar y desarrollar una página web ficticia en HTML estructurada para engañar al usuario.</li>
+                <li>Utilizar el framework <strong>Social-Engineer Toolkit (SET)</strong> para importar el sitio diseñado, alojarlo en un servidor local y capturar las credenciales.</li>
             </ul>
         </section>
 
         <section>
             <h2>Introducción</h2>
-            <p>La ingeniería social se basa en la manipulación psicológica para engañar a los usuarios y lograr que revelen información confidencial. Uno de los métodos más efectivos es el <em>phishing</em>, donde un atacante falsifica la apariencia de un sitio web de confianza para interceptar datos sensibles.</p>
-            <p>Para esta práctica se utilizó <strong>The Social-Engineer Toolkit (SET)</strong>, un framework de pruebas de penetración de código abierto diseñado específicamente para automatizar ataques de ingeniería social. A través de su módulo <em>Credential Harvester</em>, es posible clonar rápidamente la interfaz de inicio de sesión de casi cualquier sitio web y montar un servidor local que capture los datos ingresados por la víctima.</p>
+            <p>La ingeniería social se basa en la manipulación psicológica para engañar a los usuarios y lograr que revelen información confidencial. Uno de los métodos más efectivos es el <em>phishing</em>, donde un atacante falsifica la apariencia de un sitio web para interceptar datos sensibles.</p>
+            <p>Para esta práctica se utilizó <strong>The Social-Engineer Toolkit (SET)</strong>, un framework de pruebas de penetración de código abierto diseñado específicamente para automatizar ataques de ingeniería social. A través de su módulo <em>Credential Harvester</em>, es posible importar una página HTML personalizada (creada por nosotros mismos) y montar un servidor local que se encargue de procesar y capturar los datos ingresados por la víctima.</p>
         </section>
 
         <section>
             <h2>Desarrollo</h2>
-            <p>La práctica se llevó a cabo siguiendo una metodología estructurada, utilizando la terminal de comandos:</p>
+            <p>La práctica se llevó a cabo siguiendo una metodología estructurada, dividida en la creación del sitio y la configuración en la terminal:</p>
             <ol>
+                <li><strong>Desarrollo del Sitio Ficticio:</strong> Se programó una página web en HTML diseñada estratégicamente para parecer un sitio legítimo de inicio de sesión, con sus respectivos campos de usuario y contraseña.</li>
                 <li><strong>Inicialización de SET:</strong> Se ejecutó la herramienta <code>setoolkit</code> desde la línea de comandos con privilegios de administrador.</li>
                 <li><strong>Selección del Vector de Ataque:</strong> En el menú principal, se seleccionó la opción de ataques de ingeniería social (<em>Social-Engineering Attacks</em>), seguido del vector de ataque a sitios web (<em>Website Attack Vectors</em>).</li>
-                <li><strong>Configuración del Método:</strong> Se optó por el método de recolección de credenciales (<em>Credential Harvester Attack Method</em>) utilizando la técnica de clonación de sitios (<em>Site Cloner</em>).</li>
-                <li><strong>Clonación y Despliegue:</strong> Se configuró la dirección IP local de la máquina atacante como punto de escucha. Posteriormente, se introdujo la URL del sitio web legítimo a clonar. SET descargó automáticamente el código fuente de la página y levantó un servidor web falso.</li>
-                <li><strong>Captura de Datos:</strong> Al simular el acceso de una víctima navegando hacia la IP maliciosa, la interfaz gráfica mostrada era idéntica a la original. Una vez que la víctima ingresó sus credenciales, la terminal de SET interceptó y mostró el nombre de usuario y la contraseña en texto plano.</li>
+                <li><strong>Configuración de Importación:</strong> Se optó por el método de recolección de credenciales (<em>Credential Harvester Attack Method</em>) utilizando la técnica de importación personalizada (<em>Custom Import</em>), lo que nos permitió cargar nuestra propia página en lugar de clonar una existente.</li>
+                <li><strong>Despliegue y Captura:</strong> Se configuró la dirección IP local como punto de escucha y se indicó la ruta de nuestros archivos HTML. SET levantó el servidor web alojando nuestro sitio ficticio. Al simular que una víctima ingresaba sus datos en nuestra página, la terminal interceptó y mostró el nombre de usuario y la contraseña en texto plano.</li>
             </ol>
         </section>
 
         <section>
             <h2>Conclusiones</h2>
-            <p>Esta práctica demostró de manera contundente que, independientemente de la seguridad de la infraestructura tecnológica, el eslabón más débil en la ciberseguridad sigue siendo el usuario final. La facilidad y rapidez con la que el <strong>Social-Engineer Toolkit</strong> permite montar un sitio fraudulento idéntico al original resalta la urgencia de implementar medidas de seguridad adicionales, como la Autenticación Multifactor (MFA).</p>
-            <p>Como futuro ingeniero, esta evidencia me permite comprender cómo operan los atacantes reales y refuerza la importancia de promover una cultura de ciberseguridad, educando a los usuarios para verificar siempre la barra de direcciones y desconfiar de enlaces no solicitados, ya que un diseño web convincente no es garantía de autenticidad.</p>
+            <p>Esta práctica demostró de manera contundente que, independientemente de la seguridad de la infraestructura tecnológica, el eslabón más débil en la ciberseguridad sigue siendo el usuario final. La facilidad con la que el <strong>Social-Engineer Toolkit</strong> permite integrar una plantilla HTML propia y levantar un servidor malicioso resalta el peligro de los ataques de phishing dirigidos.</p>
+            <p>Como futuro ingeniero, esta evidencia refuerza la importancia de promover una cultura de ciberseguridad. Se demostró que un diseño web atractivo y convincente no es garantía de autenticidad, por lo que es vital educar a los usuarios para verificar siempre la barra de direcciones y desconfiar de enlaces no solicitados.</p>
         </section>
 
     </main>
