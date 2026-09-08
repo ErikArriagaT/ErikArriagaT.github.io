@@ -576,3 +576,221 @@ code {
         opacity: 0; 
     }
 }
+
+/* ==========================================
+   TEMA VISUAL
+   ========================================== */
+:root {
+    --hex-bg-dark: #010a13;      /* Fondo principal muy oscuro */
+    --hex-panel-bg: #091428;     /* Fondo de los paneles */
+    --hex-gold: #c8aa6e;         /* Dorado principal */
+    --hex-gold-light: #f0e6d2;   /* Texto principal */
+    --hex-blue: #0ac8b9;         /* Cian de energía */
+    --hex-border: #1e282d;       /* Bordes sutiles */
+    
+    --term-bg: #050505;          /* Fondo de consola */
+    --term-text: #4af626;        /* Verde consola */
+    --term-comment: #6b7280;     /* Comentarios consola */
+}
+
+/* ==========================================
+   CONTENEDOR PRINCIPAL DEL PROYECTO
+   ========================================== */
+.hextech-panel {
+    background-color: var(--hex-panel-bg);
+    color: var(--hex-gold-light);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 40px;
+    border: 2px solid var(--hex-gold);
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(10, 200, 185, 0.1), inset 0 0 15px rgba(0, 0, 0, 0.5);
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.project-header {
+    text-align: center;
+    border-bottom: 1px solid var(--hex-gold);
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+.gold-accent {
+    color: var(--hex-gold);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0 0 10px 0;
+    font-size: 2em;
+    text-shadow: 0 0 10px rgba(200, 170, 110, 0.3);
+}
+
+.subtitle {
+    color: var(--hex-blue);
+    font-size: 1.1em;
+    margin: 0;
+}
+
+.section-title {
+    color: var(--hex-gold);
+    border-left: 3px solid var(--hex-blue);
+    padding-left: 10px;
+    margin-top: 30px;
+    font-size: 1.4em;
+}
+
+.project-section p {
+    line-height: 1.6;
+    color: var(--hex-gold-light);
+}
+
+/* ==========================================
+   LISTAS Y RECURSOS
+   ========================================== */
+.hex-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.hex-list li {
+    padding: 8px 0;
+    position: relative;
+    padding-left: 20px;
+}
+
+.hex-list li::before {
+    content: '♦';
+    color: var(--hex-blue);
+    position: absolute;
+    left: 0;
+    font-size: 1.2em;
+    line-height: 1;
+}
+
+.hex-list strong {
+    color: var(--hex-gold);
+}
+
+/* ==========================================
+   TERMINAL BOX (ESTILO CONSOLA HACKER)
+   ========================================== */
+.terminal-box {
+    background-color: var(--term-bg);
+    border: 1px solid var(--hex-border);
+    border-radius: 6px;
+    margin: 20px 0;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+.terminal-header {
+    background-color: #1e1e1e;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #333;
+}
+
+.terminal-header .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+
+.dot.red { background-color: #ff5f56; }
+.dot.yellow { background-color: #ffbd2e; }
+.dot.green { background-color: #27c93f; }
+
+.terminal-title {
+    color: #888;
+    font-family: monospace;
+    font-size: 0.9em;
+    margin-left: 15px;
+}
+
+.terminal-body {
+    padding: 20px;
+    font-family: 'Consolas', 'Fira Code', 'Courier New', monospace;
+    font-size: 0.95em;
+    overflow-x: auto;
+}
+
+.terminal-body .phase-title {
+    color: var(--hex-gold);
+    margin-top: 25px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-size: 1em;
+}
+
+.terminal-body .phase-title:first-child {
+    margin-top: 0;
+}
+
+.terminal-body .cmd-desc {
+    color: var(--term-comment);
+    margin: 0 0 5px 0;
+    font-size: 0.9em;
+}
+
+.terminal-body code {
+    display: block;
+    color: var(--term-text);
+    margin-bottom: 20px;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.terminal-body .prompt {
+    color: var(--hex-blue);
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+/* ==========================================
+   VIDEO Y MULTIMEDIA
+   ========================================== */
+.media-wrapper {
+    border: 2px solid var(--hex-border);
+    padding: 5px;
+    background: var(--hex-black);
+    border-radius: 4px;
+}
+
+.cyber-video {
+    width: 100%;
+    display: block;
+    border: 1px solid var(--hex-gold);
+}
+
+/* ==========================================
+   BOTÓN DE DESCARGA
+   ========================================== */
+.project-actions {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px dashed var(--hex-border);
+}
+
+.cyber-button {
+    display: inline-block;
+    background-color: transparent;
+    color: var(--hex-gold);
+    text-decoration: none;
+    padding: 12px 24px;
+    font-size: 1.1em;
+    text-transform: uppercase;
+    border: 2px solid var(--hex-gold);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(200, 170, 110, 0.1);
+}
+
+.cyber-button:hover {
+    background-color: var(--hex-gold);
+    color: var(--hex-black);
+    box-shadow: 0 0 20px rgba(200, 170, 110, 0.4);
+}
