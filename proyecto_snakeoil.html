@@ -1,15 +1,22 @@
 <section class="hextech-panel project-details" id="snakeoil-pentest">
     
+    <!-- Barra de navegación para regresar -->
+    <div class="project-navigation" style="margin-bottom: 20px;">
+        <a href="index.html" class="cyber-button back-btn">
+            &larr; Volver al inicio
+        </a>
+    </div>
+
     <!-- Encabezado del Proyecto -->
     <header class="project-header">
         <h2 class="gold-accent">Auditoría de Seguridad: Servidor SnakeOil</h2>
         <p class="subtitle">Explotación de vulnerabilidades lógicas, evasión de filtros y escalada de privilegios en entorno Linux.</p>
-        <link rel="stylesheet" href="style.css"> <!-- Importante: Enlazamos el CSS que haremos después -->
     </header>
 
     <!-- 6. Descarga del Informe -->
     <div class="project-actions">
-        <a href="assets/docs/Reporte_Tecnico_SnakeOil.pdf" download class="cyber-button download-btn">
+        <!-- CORRECCIÓN: Se quitó "assets/docs/" porque el PDF está en la misma carpeta -->
+        <a href="Reporte_Tecnico_SnakeOil.pdf" download="Reporte_Tecnico_SnakeOil.pdf" class="cyber-button download-btn" target="_blank">
             Descargar Informe Técnico Completo (PDF)
         </a>
     </div>
@@ -82,8 +89,9 @@
         <h3 class="section-title">Video Explicativo</h3>
         <p>En el siguiente video detallo el proceso interactivo de la intrusión y la explicación de las vulnerabilidades lógicas explotadas.</p>
         <div class="media-wrapper">
-            <video controls class="cyber-video">
-                <source src="assets/videos/videotutorial.mp4" type="video/mp4">
+            <!-- CORRECCIÓN: Se quitó "assets/videos/" porque el video está en la misma carpeta -->
+            <video controls class="cyber-video" preload="metadata">
+                <source src="videotutorial.mp4" type="video/mp4">
                 Tu navegador no soporta la reproducción de videos.
             </video>
         </div>
@@ -96,7 +104,5 @@
             Este ejercicio evidenció que la seguridad de un sistema no depende únicamente de la robustez de sus algoritmos criptográficos, sino de la correcta implementación de su arquitectura lógica. La intrusión se logró encadenando vulnerabilidades sutiles: el transporte inseguro de un JWT, un SSRF que permitió ejecución de comandos, y finalmente, una violación al principio de menor privilegio en el sistema operativo. La capacidad de adaptar la estrategia ofensiva —pasando de la fuerza bruta a la extracción quirúrgica de código fuente— fue determinante para comprometer exitosamente el objetivo.
         </p>
     </article>
-
-    
 
 </section>
