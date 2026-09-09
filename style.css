@@ -669,43 +669,60 @@ code {
 .hex-list strong {
     color: var(--hex-gold);
 }
-
 /* ==========================================
-   TERMINAL BOX (ESTILO CONSOLA HACKER)
+   TERMINAL BOX (ESTILO HEXTECH REFORZADO)
    ========================================== */
 .terminal-box {
-    background-color: var(--term-bg);
-    border: 1px solid var(--hex-border);
-    border-radius: 6px;
+    background-color: var(--bg-color); /* Fondo súper oscuro */
+    border: 1px solid rgba(10, 200, 185, 0.3); /* Borde cyan tenue */
+    border-left: 4px solid var(--cyan-glow); /* Línea gruesa cyan a la izquierda */
+    border-radius: 2px;
     margin: 20px 0;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    box-shadow: 0 0 15px rgba(10, 200, 185, 0.1), inset 0 0 10px rgba(0,0,0,0.8);
 }
 
 .terminal-header {
-    background-color: #1e1e1e;
-    padding: 10px;
+    background-color: rgba(9, 20, 40, 0.8); /* Azul profundo de panel */
+    padding: 10px 20px;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid rgba(200, 155, 60, 0.3); /* Borde dorado inferior */
 }
 
+/* Transformamos los puntos en rombos/diamantes Hextech */
 .terminal-header .dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    margin-right: 6px;
+    width: 8px;
+    height: 8px;
+    margin-right: 12px;
+    transform: rotate(45deg); /* Gira el cuadrado para hacerlo diamante */
+    border: 1px solid;
+    transition: all 0.3s ease;
 }
 
-.dot.red { background-color: #ff5f56; }
-.dot.yellow { background-color: #ffbd2e; }
-.dot.green { background-color: #27c93f; }
+/* Colores Hextech para los "botones" */
+.dot.red { 
+    background-color: transparent; 
+    border-color: var(--primary-color); 
+}
+.dot.yellow { 
+    background-color: rgba(200, 155, 60, 0.5); 
+    border-color: var(--primary-color); 
+    box-shadow: 0 0 5px var(--primary-color); 
+}
+.dot.green { 
+    background-color: var(--cyan-glow); 
+    border-color: var(--cyan-glow); 
+    box-shadow: 0 0 8px var(--cyan-glow); 
+}
 
 .terminal-title {
-    color: #888;
-    font-family: monospace;
+    color: var(--primary-color);
+    font-family: 'Consolas', monospace;
     font-size: 0.9em;
-    margin-left: 15px;
+    margin-left: auto; /* Empuja el texto a la derecha */
+    letter-spacing: 2px;
+    text-transform: uppercase;
 }
 
 .terminal-body {
@@ -716,11 +733,14 @@ code {
 }
 
 .terminal-body .phase-title {
-    color: var(--hex-gold);
+    color: var(--header-text);
     margin-top: 25px;
     margin-bottom: 10px;
     text-transform: uppercase;
     font-size: 1em;
+    border-bottom: 1px dashed rgba(10, 200, 185, 0.4);
+    padding-bottom: 5px;
+    display: inline-block;
 }
 
 .terminal-body .phase-title:first-child {
@@ -728,21 +748,27 @@ code {
 }
 
 .terminal-body .cmd-desc {
-    color: var(--term-comment);
-    margin: 0 0 5px 0;
+    color: var(--text-color); /* Gris/dorado apagado para comentarios */
+    margin: 0 0 8px 0;
     font-size: 0.9em;
+    font-style: italic;
 }
 
+/* El comando en sí */
 .terminal-body code {
     display: block;
-    color: var(--term-text);
+    color: var(--cyan-glow); /* Texto principal en cyan en lugar de verde */
     margin-bottom: 20px;
     white-space: pre-wrap;
     word-break: break-all;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 12px;
+    border: 1px solid rgba(10, 200, 185, 0.1);
+    border-radius: 2px;
 }
 
 .terminal-body .prompt {
-    color: var(--hex-blue);
+    color: var(--primary-color); /* El signo $ en dorado */
     font-weight: bold;
     margin-right: 8px;
 }
