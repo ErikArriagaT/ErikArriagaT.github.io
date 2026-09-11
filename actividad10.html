@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio 04 - Path Traversal (Double URL Encode) - Hall of Fame</title>
+    <!-- Favicon de la página -->
+    <link rel="icon" type="image/jpeg" href="favicon.jpg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <!-- FONDO ANIMADO DE CRISTALES HEXTECH -->
+    <ul class="bubbles">
+        <li></li><li></li><li></li><li></li>
+        <li></li><li></li><li></li><li></li>
+    </ul>
+
+    <main>
+        <!-- Botón para regresar al ROAD TO HALL OF FAME -->
+        <div style="margin-bottom: 20px;">
+            <a href="hall-of-fame.html" class="back-link">← Volver al Hall of Fame</a>
+        </div>
+
+        <div class="parcial-header">
+            <h1 class="hex-title">Actividad 10</h1>
+            <p class="hex-subtitle">"Path Traversal: Bypass con Doble Codificación URL"</p>
+        </div>
+
+        <!-- BOTÓN DE DESCARGA PDF -->
+        <div style="text-align: center; margin-bottom: 40px;">
+            <!-- Asegúrate de que el nombre coincida con tu archivo PDF -->
+            <a href="Actividad10.pdf" download class="btn-hextech">
+                <span class="gold-accent">↓</span> Descargar Reporte (PDF)
+            </a>
+        </div>
+
+        <!-- RECUADROS DE LA PRÁCTICA -->
+        <section>
+            <h2>Descripción General</h2>
+            <p><strong>Explotación exitosa de Path Traversal superando mecanismos de filtrado secuencial.</strong> Se empleó la técnica de doble codificación URL (<code>%252e%252e%252f</code>) para ofuscar la carga útil durante la validación de seguridad, aprovechando una decodificación superflua en el servidor para lograr extraer el archivo <code>/etc/passwd</code>.</p>
+        </section>
+
+        <section>
+            <h2>Objetivos de la Práctica</h2>
+            <ul>
+                <li>Analizar cómo las validaciones de entrada pueden ser evadidas cuando las diferentes capas de la aplicación decodifican los datos de manera inconsistente.</li>
+                <li>Aplicar la técnica de doble codificación URL para ocultar secuencias maliciosas frente a filtros de seguridad iniciales.</li>
+                <li>Comprender el comportamiento del backend al procesar decodificaciones superfluas antes de interactuar con el sistema de archivos.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Desarrollo</h2>
+            <p>La evasión de este filtro se logró explotando la discrepancia entre el componente de seguridad y el servidor backend:</p>
+            <ol>
+                <li><strong>Intercepción y Bloqueo:</strong> Se capturó la petición encargada de servir imágenes o archivos. Al intentar un ataque básico de salto de directorio (<code>../</code>) o una codificación URL simple (<code>%2e%2e%2f</code>), el servidor bloqueó la solicitud, indicando un filtrado activo.</li>
+                <li><strong>Análisis de la Arquitectura:</strong> Se planteó la hipótesis de que el sistema de seguridad (WAF) decodificaba la URL una sola vez para buscar amenazas. Sin embargo, si el servidor web interno realizaba una segunda decodificación (decodificación superflua) al enrutar la petición, se abriría una brecha.</li>
+                <li><strong>Construcción del Payload:</strong> Se codificó la secuencia maliciosa dos veces. El punto <code>.</code> (<code>%2e</code>) se convirtió en <code>%252e</code>, y la barra <code>/</code> (<code>%2f</code>) en <code>%252f</code>, ya que <code>%25</code> es el valor hexadecimal del propio símbolo de porcentaje (<code>%</code>).</li>
+                <li><strong>Explotación:</strong> Se inyectó el payload <code>filename=%252e%252e%252f%252e%252e%252f%252e%252e%252fetc/passwd</code>. El filtro inicial leyó <code>%2e%2e%2f</code> (lo cual no reconoció como el texto plano <code>../</code>) y permitió el paso. </li>
+                <li><strong>Resolución:</strong> El servidor backend tomó ese <code>%2e%2e%2f</code>, lo decodificó una segunda vez a <code>../</code>, saltó los directorios y devolvió el contenido del archivo de contraseñas con éxito.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Conclusiones</h2>
+            <p>Este laboratorio demuestra los riesgos de las arquitecturas donde múltiples componentes manejan y alteran la codificación de los datos (parsing differentials). Intentar bloquear ataques prediciendo cada forma posible de codificación es una batalla perdida.</p>
+            <p>La defensa más sólida contra el <em>Path Traversal</em> es normalizar completamente la ruta de entrada (resolviendo cualquier decodificación, salto de directorio o enlace simbólico) antes de validarla. Una vez normalizada, la aplicación debe verificar que la ruta final comience exactamente con el directorio base permitido antes de conceder el acceso.</p>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA (FOOTER) -->
+    <footer>
+        <p>&copy; 2026 Erik Del Angel Arriaga Torres. Fundamentos de Ciberseguridad.</p>
+        <p>UPSLP</p>
+    </footer>
+
+</body>
+</html>
