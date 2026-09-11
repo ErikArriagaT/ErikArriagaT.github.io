@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Road to Hall of Fame - Seguridad Informática</title>
+    <link rel="icon" type="image/jpeg" href="favicon.jpg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <!-- FONDO ANIMADO -->
+    <ul class="bubbles">
+        <li></li><li></li><li></li><li></li>
+        <li></li><li></li><li></li><li></li>
+    </ul>
+
+    <!-- MENÚ DE NAVEGACIÓN -->
+    <header class="hextech-header">
+        <div class="top-bar">
+            <div class="logo"><span class="gold-accent">✦</span> UPSLP</div>
+            <nav class="lol-nav">
+                <ul>
+                    <li><a href="index.html">RESUMEN</a></li>
+                    <li><a href="parcial1.html">PARCIAL 1</a></li>
+                    <li><a href="#" class="active">ROAD TO HALL OF FAME</a></li>
+                    <li><a href="index.html#contacto">CONTACTO</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main style="max-width: 1200px; padding: 40px 20px;">
+        
+        <div class="hall-of-fame-header">
+            <h1 class="hex-title">ROAD TO HALL OF FAME</h1>
+            <p class="hex-subtitle">"Ruta de Progreso: Laboratorios de Seguridad"</p>
+        </div>
+
+        <!-- REQUISITO RÚBRICA: BOTÓN GLOBAL DE DESCARGA -->
+        <div class="global-download-container">
+            <p style="margin-top: 0; color: var(--header-text);">Descarga el documento maestro con la documentación técnica de todos los laboratorios.</p>
+            <a href="laboratorios_completos.pdf" download class="btn-hextech">
+                <span class="gold-accent">↓</span> DESCARGAR DOCUMENTO COMPLETO (PDF)
+            </a>
+        </div>
+
+        <!-- ROADMAP / PASE DE BATALLA -->
+        <div class="roadmap-track">
+            
+            <!-- NODO 1: Laboratorio 1 -->
+            <div class="pass-node">
+                <div class="node-level"><span>1</span></div>
+                <!-- Sustituye la ruta (src) por la imagen de tu laboratorio -->
+                <img src="img_lab1.jpg" alt="Laboratorio 1" class="node-image">
+                <div class="node-info">
+                    <h3>Nombre del Lab 1</h3>
+                    <p><strong>Descripción:</strong> Breve descripción técnica de la vulnerabilidad o herramienta utilizada.</p>
+                    <p><strong>Evidencia:</strong> Captura de tráfico / Ejecución de script.</p>
+                    
+                    <div class="node-actions">
+                        <a href="lab1.html" class="btn-small">Previsualizar</a>
+                        <a href="lab1.pdf" download class="btn-small">Descargar PDF</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NODO 2: Laboratorio 2 -->
+            <div class="pass-node">
+                <div class="node-level"><span>2</span></div>
+                <img src="img_lab2.jpg" alt="Laboratorio 2" class="node-image">
+                <div class="node-info">
+                    <h3>Nombre del Lab 2</h3>
+                    <p><strong>Descripción:</strong> Análisis de puertos y descubrimiento de servicios.</p>
+                    <p><strong>Evidencia:</strong> Reporte de Nmap.</p>
+                    
+                    <div class="node-actions">
+                        <a href="lab2.html" class="btn-small">Previsualizar</a>
+                        <a href="lab2.pdf" download class="btn-small">Descargar PDF</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NODO 3: Laboratorio 3 -->
+            <div class="pass-node">
+                <div class="node-level"><span>3</span></div>
+                <img src="img_lab3.jpg" alt="Laboratorio 3" class="node-image">
+                <div class="node-info">
+                    <h3>Nombre del Lab 3</h3>
+                    <p><strong>Descripción:</strong> Intercepción de tráfico local y análisis de paquetes.</p>
+                    <p><strong>Evidencia:</strong> Archivo .pcap de Wireshark.</p>
+                    
+                    <div class="node-actions">
+                        <a href="lab3.html" class="btn-small">Previsualizar</a>
+                        <a href="lab3.pdf" download class="btn-small">Descargar PDF</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copia y pega el bloque <div class="pass-node">...</div> aquí para los laboratorios del 4 al 18 -->
+
+        </div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Erik Del Angel Arriaga Torres. Fundamentos de Ciberseguridad.</p>
+        <p>UPSLP</p>
+    </footer>
+
+</body>
+</html>
