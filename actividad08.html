@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actividad 08 - Path Traversal - Hall of Fame</title>
+    <title>Laboratorio 02 - File Path Traversal - Hall of Fame</title>
     <!-- Favicon de la página -->
     <link rel="icon" type="image/jpeg" href="favicon.jpg">
     <link rel="stylesheet" href="style.css">
@@ -23,50 +23,48 @@
         </div>
 
         <div class="parcial-header">
-            <h1 class="hex-title">Actividad 08</h1>
-            <p class="hex-subtitle">"File Path Traversal: Bypass con Rutas Absolutas"</p>
+            <h1 class="hex-title">Laboratorio 02</h1>
+            <p class="hex-subtitle">"LAB 08: File Path Traversal (Absolute Path Bypass)"</p>
         </div>
 
         <!-- BOTÓN DE DESCARGA PDF -->
         <div style="text-align: center; margin-bottom: 40px;">
-            <!-- Apuntando al archivo especificado -->
-            <a href="Actividad08.pdf" download class="btn-hextech">
+            <!-- Asegúrate de que el nombre coincida con tu archivo PDF -->
+            <a href="Practica02.pdf" download class="btn-hextech">
                 <span class="gold-accent">↓</span> Descargar Reporte (PDF)
             </a>
         </div>
 
         <!-- RECUADROS DE LA PRÁCTICA -->
         <section>
+            <h2>Descripción General</h2>
+            <p><strong>Explotación exitosa de una vulnerabilidad de File Path Traversal.</strong> Se logró evadir las restricciones de navegación relativa (<code>../</code>) inyectando directamente una ruta absoluta, obteniendo acceso a la raíz del servidor para la extracción de archivos críticos de configuración.</p>
+        </section>
+
+        <section>
             <h2>Objetivos de la Práctica</h2>
             <ul>
-                <li>Comprender la vulnerabilidad de <strong>Directory / File Path Traversal</strong> y cómo permite a un atacante leer archivos arbitrarios en el servidor.</li>
-                <li>Identificar y evadir mecanismos de defensa deficientes, específicamente el bloqueo de secuencias de recorrido relativo (como <code>../</code>).</li>
-                <li>Explotar la vulnerabilidad utilizando una <strong>ruta absoluta</strong> para acceder a archivos sensibles del sistema (ej. <code>/etc/passwd</code>).</li>
+                <li>Demostrar la ineficacia de los filtros de seguridad basados exclusivamente en el bloqueo de secuencias de directorio relativo.</li>
+                <li>Utilizar rutas absolutas para forzar al servidor a resolver directorios desde la raíz del sistema operativo.</li>
+                <li>Extraer archivos críticos (como <code>/etc/passwd</code>) para evidenciar el impacto de una validación de entrada deficiente.</li>
             </ul>
         </section>
 
         <section>
-            <h2>Introducción</h2>
-            <p>La vulnerabilidad de <em>Path Traversal</em> (o salto de directorio) ocurre cuando una aplicación web utiliza la entrada del usuario para construir una ruta de archivo y no la valida correctamente. Esto permite a un atacante manipular la ruta para acceder a archivos fuera del directorio raíz de la web, exponiendo credenciales, código fuente o archivos del sistema operativo.</p>
-            <p>A menudo, los desarrolladores intentan mitigar esto bloqueando o eliminando secuencias de caracteres típicas como <code>../</code> (utilizadas para subir un nivel en el directorio). Sin embargo, este enfoque de "lista negra" es ineficaz si la aplicación procesa directamente la ruta del archivo ingresada. Si en lugar de usar una ruta relativa se envía una <strong>ruta absoluta</strong> (desde la raíz del sistema operativo), el filtro no detecta los puntos y la solicitud maliciosa tiene éxito.</p>
-        </section>
-
-        <section>
             <h2>Desarrollo</h2>
-            <p>La resolución de este laboratorio se llevó a cabo interceptando y modificando las peticiones HTTP entre el navegador y el servidor:</p>
+            <p>El proceso de explotación se dividió en las siguientes fases:</p>
             <ol>
-                <li><strong>Identificación del Vector:</strong> Al navegar por la aplicación web, se detectó que las imágenes de los productos se cargaban mediante una solicitud al endpoint de imágenes usando el parámetro <code>filename</code> (por ejemplo: <code>/image?filename=15.jpg</code>).</li>
-                <li><strong>Prueba de Vulnerabilidad Básica:</strong> Se interceptó la petición y se intentó un ataque estándar de recorrido de directorios modificando el parámetro a <code>filename=../../../etc/passwd</code>.</li>
-                <li><strong>Análisis de la Defensa:</strong> El servidor devolvió un error o no mostró la imagen, indicando que existía un mecanismo de defensa bloqueando explícitamente las secuencias <code>../</code>.</li>
-                <li><strong>Bypass (Evasión):</strong> Para evadir el filtro, se omitieron las secuencias de salto relativo y se inyectó directamente la ruta absoluta del archivo objetivo. La petición se modificó a: <code>filename=/etc/passwd</code>.</li>
-                <li><strong>Explotación Exitosa:</strong> Al enviar la petición modificada, el servidor validó la ruta sin detectar los puntos bloqueados y devolvió en el cuerpo de la respuesta el contenido completo del archivo <code>/etc/passwd</code>, demostrando la vulnerabilidad crítica.</li>
+                <li><strong>Intercepción del Tráfico:</strong> Se capturó la petición HTTP encargada de cargar recursos dinámicos en la aplicación (por ejemplo, la carga de una imagen mediante el parámetro <code>filename</code>).</li>
+                <li><strong>Detección de Filtros:</strong> Al intentar inyectar secuencias estándar de salto de directorio (<code>../../../etc/passwd</code>), el servidor bloqueó la solicitud o devolvió un error, evidenciando un filtro activo contra caracteres relativos.</li>
+                <li><strong>Bypass del Filtro:</strong> Se modificó el parámetro para eliminar las secuencias relativas y solicitar directamente la ruta absoluta del archivo objetivo (<code>filename=/etc/passwd</code>).</li>
+                <li><strong>Extracción de Datos:</strong> El servidor procesó la ruta absoluta sin aplicar bloqueos adicionales, permitiendo la visualización del contenido del archivo crítico directamente en la respuesta HTTP interceptada.</li>
             </ol>
         </section>
 
         <section>
             <h2>Conclusiones</h2>
-            <p>Este laboratorio evidencia por qué las defensas basadas en listas negras (bloquear cadenas específicas como <code>../</code>) son insuficientes y peligrosas en ciberseguridad. Los atacantes pueden encontrar múltiples formas de evadir estas restricciones, ya sea usando rutas absolutas, codificación URL o secuencias anidadas.</p>
-            <p>La mitigación correcta de un <em>Path Traversal</em> debe basarse en el principio de menor privilegio y una estricta validación de entrada. En lugar de bloquear caracteres malos, se debe usar una lista blanca de archivos permitidos o, como mínimo, validar que el nombre del archivo final (después de resolver la ruta) sea estrictamente el nombre base (<em>basename</em>) y no contenga directorios subyacentes antes de procesarlo en la API del sistema de archivos.</p>
+            <p>Esta práctica comprueba que bloquear secuencias específicas (listas negras) no es una solución robusta contra los ataques de <em>Path Traversal</em>. Un atacante siempre buscará alternativas, como proporcionar la ruta absoluta desde el directorio raíz, para sortear estas defensas superficiales.</p>
+            <p>Para asegurar correctamente el manejo de archivos, la aplicación web debe validar que la entrada coincida exactamente con un formato esperado o, preferiblemente, implementar un mecanismo de referencias indirectas en lugar de pasar nombres de archivos directamente a la API del sistema operativo.</p>
         </section>
 
     </main>
