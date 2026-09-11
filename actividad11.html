@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio 05 - Path Traversal (Base Prefix) - Hall of Fame</title>
+    <!-- Favicon de la página -->
+    <link rel="icon" type="image/jpeg" href="favicon.jpg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <!-- FONDO ANIMADO DE CRISTALES HEXTECH -->
+    <ul class="bubbles">
+        <li></li><li></li><li></li><li></li>
+        <li></li><li></li><li></li><li></li>
+    </ul>
+
+    <main>
+        <!-- Botón para regresar al ROAD TO HALL OF FAME -->
+        <div style="margin-bottom: 20px;">
+            <a href="hall-of-fame.html" class="back-link">← Volver al Hall of Fame</a>
+        </div>
+
+        <div class="parcial-header">
+            <h1 class="hex-title">Actividad 11</h1>
+            <p class="hex-subtitle">"Path Traversal: Bypass manteniendo el prefijo del directorio base"</p>
+        </div>
+
+        <!-- BOTÓN DE DESCARGA PDF -->
+        <div style="text-align: center; margin-bottom: 40px;">
+            <!-- Asegúrate de que el nombre coincida con tu archivo PDF -->
+            <a href="Actividad11.pdf" download class="btn-hextech">
+                <span class="gold-accent">↓</span> Descargar Reporte (PDF)
+            </a>
+        </div>
+
+        <!-- RECUADROS DE LA PRÁCTICA -->
+        <section>
+            <h2>Descripción General</h2>
+            <p><strong>Explotación de un fallo lógico en el control de acceso a archivos.</strong> Se logró eludir la validación del directorio base manteniendo intacto el prefijo obligatorio (<code>/var/www/images/</code>) y concatenando secuencias de Path Traversal (<code>../../../etc/passwd</code>), lo que permitió la extracción de archivos críticos del servidor.</p>
+        </section>
+
+        <section>
+            <h2>Objetivos de la Práctica</h2>
+            <ul>
+                <li>Identificar vulnerabilidades lógicas donde la validación de entrada se limita a comprobar el inicio de una cadena (prefijo).</li>
+                <li>Construir cargas útiles (payloads) que satisfagan las reglas de validación superficiales mientras explotan el sistema de archivos subyacente.</li>
+                <li>Extraer información sensible del sistema operativo para demostrar el impacto de una mala implementación del control de acceso.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Desarrollo</h2>
+            <p>La explotación de este laboratorio se centró en engañar al mecanismo de validación de rutas del servidor:</p>
+            <ol>
+                <li><strong>Mapeo de la aplicación:</strong> Se identificó una función de visualización de imágenes que recibía rutas de archivos a través de un parámetro.</li>
+                <li><strong>Detección del control de acceso:</strong> Al intentar inyectar payloads tradicionales (<code>../../../etc/passwd</code>) o rutas absolutas (<code>/etc/passwd</code>), la aplicación arrojó un error indicando que la ruta del archivo <em>debía</em> comenzar con el directorio base permitido: <code>/var/www/images/</code>.</li>
+                <li><strong>Análisis de la vulnerabilidad lógica:</strong> Se determinó que el desarrollador probablemente implementó una validación del tipo <code>startsWith()</code> en el código, verificando solo los primeros caracteres de la entrada y confiando ciegamente en el resto de la ruta.</li>
+                <li><strong>Elaboración del payload:</strong> Para superar el filtro, se incluyó el prefijo exacto requerido y se le concatenó la secuencia de salto de directorio necesaria para llegar a la raíz. El payload resultante fue: <code>filename=/var/www/images/../../../etc/passwd</code>.</li>
+                <li><strong>Ejecución y Extracción:</strong> El servidor validó exitosamente que la cadena comenzaba con la carpeta permitida. Posteriormente, al pasar esta cadena al sistema de archivos del sistema operativo (OS), este resolvió los saltos <code>../</code>, retrocedió hasta el directorio raíz y devolvió el contenido de <code>/etc/passwd</code>.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Conclusiones</h2>
+            <p>Esta práctica ilustra perfectamente los peligros de las validaciones "ingenuas". Verificar que una cadena comience con un valor seguro no garantiza que el destino final del archivo sea seguro, ya que los sistemas operativos resuelven las rutas relativas (<code>../</code>) independientemente del prefijo.</p>
+            <p>Para prevenir esta vulnerabilidad, los desarrolladores deben canonicalizar (normalizar) la ruta del archivo proporcionada por el usuario <em>antes</em> de realizar cualquier validación. Solo después de que se hayan resuelto todos los saltos de directorio (obteniendo la ruta absoluta real) se debe verificar si el archivo reside dentro del directorio base permitido.</p>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA (FOOTER) -->
+    <footer>
+        <p>&copy; 2026 Erik Del Angel Arriaga Torres. Fundamentos de Ciberseguridad.</p>
+        <p>UPSLP</p>
+    </footer>
+
+</body>
+</html>
