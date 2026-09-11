@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 12 - Path Traversal (Null Byte) - Hall of Fame</title>
+    <!-- Favicon de la página -->
+    <link rel="icon" type="image/jpeg" href="favicon.jpg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <!-- FONDO ANIMADO DE CRISTALES HEXTECH -->
+    <ul class="bubbles">
+        <li></li><li></li><li></li><li></li>
+        <li></li><li></li><li></li><li></li>
+    </ul>
+
+    <main>
+        <!-- Botón para regresar al ROAD TO HALL OF FAME -->
+        <div style="margin-bottom: 20px;">
+            <a href="hall-of-fame.html" class="back-link">← Volver al Hall of Fame</a>
+        </div>
+
+        <div class="parcial-header">
+            <h1 class="hex-title">Laboratorio 06</h1>
+            <p class="hex-subtitle">"Path Traversal: Bypass con Inyección de Byte Nulo (%00)"</p>
+        </div>
+
+        <!-- BOTÓN DE DESCARGA PDF -->
+        <div style="text-align: center; margin-bottom: 40px;">
+            <!-- Asegúrate de que el nombre coincida con tu archivo PDF -->
+            <a href="Actividad12.pdf" download class="btn-hextech">
+                <span class="gold-accent">↓</span> Descargar Reporte (PDF)
+            </a>
+        </div>
+
+        <!-- RECUADROS DE LA PRÁCTICA -->
+        <section>
+            <h2>Descripción General</h2>
+            <p><strong>Explotación de una vulnerabilidad de Path Traversal superando restricciones de extensión de archivo.</strong> Se utilizó la inyección de un byte nulo (<code>%00</code>) para satisfacer la validación superficial de la aplicación web (forzando una terminación en <code>.png</code>), mientras se obligaba al sistema operativo a truncar la cadena y procesar la extracción del archivo crítico <code>/etc/passwd</code>.</p>
+        </section>
+
+        <section>
+            <h2>Objetivos de la Práctica</h2>
+            <ul>
+                <li>Comprender las discrepancias en el procesamiento de cadenas de texto entre aplicaciones web de alto nivel y las APIs de bajo nivel del sistema operativo.</li>
+                <li>Eludir los controles de validación de extensiones de archivo mediante la inyección del carácter de terminación nula (<em>Null Byte</em>).</li>
+                <li>Demostrar cómo la falta de normalización de datos puede llevar a la extracción de archivos críticos del sistema.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Desarrollo</h2>
+            <p>Este ataque se fundamentó en explotar una falla de validación basada en la extensión del archivo:</p>
+            <ol>
+                <li><strong>Identificación del Filtro:</strong> Se determinó que la aplicación requería que el parámetro <code>filename</code> finalizara estrictamente con una extensión de imagen válida. Al enviar <code>../../../etc/passwd</code>, la solicitud fue rechazada por no terminar en <code>.png</code>.</li>
+                <li><strong>Elaboración del Payload:</strong> Para engañar a la validación, se anexó la extensión esperada al final de nuestra carga útil maliciosa. Sin embargo, para evitar que el sistema buscara un archivo inexistente llamado <code>passwd.png</code>, se insertó un Byte Nulo URL-encodeado en medio: <code>filename=../../../etc/passwd%00.png</code>.</li>
+                <li><strong>Bypass en la Capa Web:</strong> La aplicación web, al realizar la comprobación de la extensión (generalmente comparando los últimos caracteres del string), leyó <code>.png</code>, validó la entrada como segura y permitió el flujo de la solicitud.</li>
+                <li><strong>Truncamiento en el Sistema Operativo:</strong> Cuando la aplicación web pasó esta cadena a las funciones del sistema de archivos (a menudo escritas en C/C++), estas leyeron el <code>%00</code> como un terminador de cadena legítimo (<em>null terminator</em>).</li>
+                <li><strong>Explotación Exitosa:</strong> El sistema operativo descartó inmediatamente el <code>.png</code> que venía después del byte nulo. Ejecutó únicamente <code>../../../etc/passwd</code>, resolviendo los directorios y devolviendo el contenido del archivo crítico en la respuesta HTTP.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Conclusiones</h2>
+            <p>La inyección de Byte Nulo es un vector de ataque clásico que subraya un principio fundamental de la ciberseguridad: el contexto en el que se interpretan los datos es tan importante como los datos mismos. Las vulnerabilidades a menudo residen en las "costuras" entre diferentes tecnologías (en este caso, entre el lenguaje de scripting de la web y el sistema operativo).</p>
+            <p>Aunque los lenguajes de programación modernos han parcheado internamente gran parte de los problemas con los bytes nulos en las funciones de manejo de archivos (como PHP desde su versión 5.3.4), este laboratorio demuestra por qué jamás se debe confiar en la validación por sufijos. Las rutas siempre deben resolverse a su estado canónico absoluto antes de someterlas a cualquier control de acceso.</p>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA (FOOTER) -->
+    <footer>
+        <p>&copy; 2026 Erik Del Angel Arriaga Torres. Fundamentos de Ciberseguridad.</p>
+        <p>UPSLP</p>
+    </footer>
+
+</body>
+</html>
