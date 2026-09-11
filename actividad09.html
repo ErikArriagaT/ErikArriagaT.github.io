@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio 03 - Path Traversal - Hall of Fame</title>
+    <!-- Favicon de la página -->
+    <link rel="icon" type="image/jpeg" href="favicon.jpg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <!-- FONDO ANIMADO DE CRISTALES HEXTECH -->
+    <ul class="bubbles">
+        <li></li><li></li><li></li><li></li>
+        <li></li><li></li><li></li><li></li>
+    </ul>
+
+    <main>
+        <!-- Botón para regresar al ROAD TO HALL OF FAME -->
+        <div style="margin-bottom: 20px;">
+            <a href="hall-of-fame.html" class="back-link">← Volver al Hall of Fame</a>
+        </div>
+
+        <div class="parcial-header">
+            <h1 class="hex-title">Actividad 09</h1>
+            <p class="hex-subtitle">"Path Traversal: Bypass con Secuencias Anidadas"</p>
+        </div>
+
+        <!-- BOTÓN DE DESCARGA PDF -->
+        <div style="text-align: center; margin-bottom: 40px;">
+            <!-- Asegúrate de que el nombre coincida con tu archivo PDF -->
+            <a href="Actividad09.pdf" download class="btn-hextech">
+                <span class="gold-accent">↓</span> Descargar Reporte (PDF)
+            </a>
+        </div>
+
+        <!-- RECUADROS DE LA PRÁCTICA -->
+        <section>
+            <h2>Descripción General</h2>
+            <p><strong>Explotación exitosa de Path Traversal evadiendo un filtro de sanitización deficiente.</strong> Se inyectaron secuencias anidadas (<code>....//</code>) para obligar al servidor a reconstruir el patrón de salto de directorio tras su limpieza superficial, logrando extraer el archivo <code>/etc/passwd</code>.</p>
+        </section>
+
+        <section>
+            <h2>Objetivos de la Práctica</h2>
+            <ul>
+                <li>Identificar la presencia de filtros de seguridad no recursivos que eliminan secuencias de salto de directorio.</li>
+                <li>Comprender la lógica de procesamiento del servidor para manipular la sanitización a favor del atacante.</li>
+                <li>Aplicar técnicas de ofuscación y secuencias anidadas para reconstruir la carga útil (payload) original y acceder a archivos restringidos.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Desarrollo</h2>
+            <p>El ataque se ejecutó explotando la forma en que la aplicación intentaba protegerse a sí misma:</p>
+            <ol>
+                <li><strong>Intercepción inicial:</strong> Se interceptó la petición que solicitaba un archivo interno, por ejemplo, mediante el parámetro <code>filename</code>.</li>
+                <li><strong>Prueba del filtro:</strong> Al inyectar el payload estándar <code>../../../etc/passwd</code>, el servidor procesó la petición pero eliminó las secuencias <code>../</code>, dejando la ruta inservible y devolviendo un error o el archivo incorrecto. Esto indicó que la sanitización no era recursiva (es decir, solo eliminaba el patrón una vez).</li>
+                <li><strong>Inyección de Secuencias Anidadas:</strong> Se construyó un nuevo payload utilizando el patrón <code>....//</code>. Al enviarlo, la función de limpieza del servidor detectó el <code>../</code> interno y lo eliminó.</li>
+                <li><strong>Reconstrucción del Payload:</strong> Tras la eliminación de los caracteres internos, los puntos y barras restantes (<code>..</code> y <code>/</code>) se juntaron automáticamente, formando un nuevo <code>../</code> válido directamente en la memoria del servidor.</li>
+                <li><strong>Explotación:</strong> La petición final enviada fue <code>filename=....//....//....//etc/passwd</code>. El servidor la procesó, evadió el filtro y devolvió exitosamente el archivo crítico de configuración.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Conclusiones</h2>
+            <p>Este laboratorio demuestra una de las fallas de lógica más comunes en el desarrollo web: implementar defensas superficiales que no procesan la entrada de manera exhaustiva. Una sanitización que solo elimina "palabras malas" una sola vez es trivial de evadir usando técnicas de ofuscación anidada.</p>
+            <p>Para defenderse correctamente, la aplicación no debería depender de limpiar las entradas maliciosas (stripping), sino validar que la entrada final cumpla con estrictos criterios permitidos (whitelisting) o utilizar funciones de seguridad nativas del framework que normalicen y validen la ruta antes de interactuar con el sistema de archivos.</p>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA (FOOTER) -->
+    <footer>
+        <p>&copy; 2026 Erik Del Angel Arriaga Torres. Fundamentos de Ciberseguridad.</p>
+        <p>UPSLP</p>
+    </footer>
+
+</body>
+</html>
