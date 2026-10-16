@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto Segundo Parcial - Seguridad Informática</title>
+    <title>Proyecto 02 - Gobernanza y Cumplimiento - Seguridad Informática</title>
+    <!-- Favicon de la página -->
     <link rel="icon" type="image/jpeg" href="favicon.jpg">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -16,43 +17,91 @@
     </ul>
 
     <main>
-        <!-- Botón para regresar a la lista de proyectos -->
+        <!-- Botón para regresar a Proyectos -->
         <div style="margin-bottom: 20px;">
             <a href="tproyecto.html" class="back-link">← Volver a Proyectos</a>
         </div>
 
         <div class="parcial-header">
-            <h1 class="hex-title">Proyecto Segundo Parcial</h1>
-            <p class="hex-subtitle">"Aplicación práctica de vulnerabilidades y configuraciones"</p>
+            <h1 class="hex-title">Proyecto 02</h1>
+            <p class="hex-subtitle">"PR02 – Blindando la información: Gobernanza y Cumplimiento"</p>
         </div>
 
         <!-- BOTÓN DE DESCARGA ZIP -->
         <div style="text-align: center; margin-bottom: 40px;">
-            <!-- Asegúrate de que el nombre coincida con tu archivo ZIP real -->
-            <a href="ArriagaTorresErikDelAngel181653.zip" download class="btn-hextech">
-                <span class="gold-accent">↓</span> DESCARGAR PROYECTO COMPLETO (.ZIP)
+            <!-- El nombre del archivo se ajustó al formato de matrícula -->
+            <a href="ArriagaTorresErikDelAngel-PR03.zip" download class="btn-hextech">
+                <span class="gold-accent">↓</span> Descargar Entregables (.zip)
             </a>
         </div>
 
         <!-- SECCIONES DE INFORMACIÓN -->
         <section>
-            <h2>INTRODUCCIÓN</h2>
-            <p>Este proyecto documenta la aplicación práctica de los conocimientos adquiridos durante el segundo parcial del curso de Seguridad Informática. Se adjuntan los archivos, configuraciones y evidencias necesarias comprimidas en un archivo ZIP para su revisión detallada.</p>
+            <h2>Contexto y Objetivo</h2>
+            <p>Este proyecto se desarrolló sobre <strong>INTERAFAS-LAB</strong>, un entorno académico controlado que simula un organismo operador de agua potable, categorizado como infraestructura crítica. A diferencia de un entorno CTF tradicional centrado en la obtención de acceso <em>root</em>, este laboratorio consistió en una auditoría ofensiva guiada a través de un portal web y su entorno operacional simulado.</p>
+            <p>El objetivo principal fue evaluar integralmente la postura de ciberseguridad de la organización: identificar, explotar y documentar 20 vulnerabilidades, analizando su impacto en la cadena de ataque. Con esta evidencia, se propusieron controles de gobernanza basados en <strong>ISO/IEC 27001</strong>, así como planes estratégicos de comunicación de crisis y respuesta ante incidentes.</p>
         </section>
 
         <section>
-            <h2>CONTENIDO DEL PROYECTO</h2>
-            <p>El archivo comprimido incluye los siguientes elementos desarrollados durante las prácticas:</p>
+            <h2>Metodología y Herramientas</h2>
+            <p>Para esta auditoría no se emplearon herramientas automatizadas convencionales (como Nmap, Burp Suite o Metasploit). El análisis se ejecutó mediante técnicas manuales y de inspección directa del tráfico, garantizando una comprensión profunda de cada vulnerabilidad:</p>
             <ul>
-                <li>Documentación técnica de los laboratorios.</li>
-                <li>Scripts y configuraciones utilizadas.</li>
-                <li>Evidencias de explotación de vulnerabilidades (ej. Path Traversal).</li>
+                <li><strong>Navegador Web y DevTools:</strong> Inspección profunda de Network, Application y Console para manipular parámetros y cookies.</li>
+                <li><strong>cURL y PowerShell:</strong> Ejecución de solicitudes HTTP controladas y generación/validación offline de candidatos (hashes SHA-1).</li>
+                <li><strong>Análisis Estático:</strong> Revisión manual de archivos descargados (.bak, JSON, ZIP) mediante editores de texto para búsqueda de credenciales y rutas.</li>
             </ul>
+        </section>
+
+        <section>
+            <h2>Vulnerabilidades Explotadas (Kill Chain)</h2>
+            <p>Se identificaron y explotaron exitosamente 20 banderas (flags) que demostraron cómo los fallos lógicos y técnicos pueden escalar hasta el entorno operacional (OT):</p>
+            
+            <h3 style="color: var(--cyan-glow); margin-top: 20px; font-size: 1.1rem;">Fugas de Información y Web</h3>
+            <ul>
+                <li>Listado de directorios y tokens residuales expuestos en <em>releases</em>.</li>
+                <li>Filtración de configuraciones en el <em>frontend</em> y divulgación de metadatos de infraestructura.</li>
+                <li>Manejo impropio de errores (exposición de información de diagnóstico).</li>
+                <li>Path Traversal para lectura de archivos del sistema (<code>/etc/passwd</code> y <code>motd</code>).</li>
+            </ul>
+
+            <h3 style="color: var(--cyan-glow); margin-top: 20px; font-size: 1.1rem;">Control de Acceso, Autenticación e Inyecciones</h3>
+            <ul>
+                <li>Escalamiento de privilegios vertical mediante manipulación de <em>cookie</em> de rol.</li>
+                <li>IDOR (Insecure Direct Object Reference) en expedientes ciudadanos y BOLA (Broken Object Level Authorization) para acceso a cuentas ajenas.</li>
+                <li>Fijación de sesión y descubrimiento de endpoints de historial no documentados.</li>
+                <li>Inyección SQL Ciega (Booleana) y XSS Almacenado en reportes.</li>
+                <li>Suplantación de origen mediante la cabecera <code>X-Forwarded-For</code> en el API Gateway.</li>
+            </ul>
+
+            <h3 style="color: var(--cyan-glow); margin-top: 20px; font-size: 1.1rem;">Lógica de Negocio y Entorno Operacional (OT)</h3>
+            <ul>
+                <li>Fallas de lógica de negocio en pasarelas de pago (montos no revalidados) y validación insuficiente de vínculos contractuales.</li>
+                <li>Telemetría expuesta sin autenticación de aplicación.</li>
+                <li>Verificación insuficiente de integridad de <em>firmware</em> (basada únicamente en checksum).</li>
+                <li>Exceso de privilegios en la cadena de dependencias operacionales.</li>
+                <li><strong>Impacto Crítico:</strong> Aceptación de <em>setpoints</em> críticos sin validación de límites de ingeniería, permitiendo inducir estados operacionales catastróficos.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Contenido del Entregable (.ZIP)</h2>
+            <p>El archivo comprimido descargable incluye las evidencias técnicas y documentales de la auditoría:</p>
+            <ul>
+                <li><strong>Bitácora Oficial:</strong> Logs de INTERAFAS-LAB que demuestran la secuencia temporal de acciones y el registro validado de las 20 banderas.</li>
+                <li><strong>Evidencias Técnicas:</strong> Capturas de pantalla y bitácoras individuales por cada hallazgo explotado.</li>
+                <li><strong>Documentación Ejecutiva:</strong> Informe técnico consolidado, lineamientos de gobernanza (ISO/IEC 27001), plan de comunicación de crisis y plan de respuesta a incidentes.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Conclusiones y Visión Profesional</h2>
+            <p>Como futuro ingeniero en ciberseguridad, este proyecto demuestra de forma contundente que una vulnerabilidad aparentemente aislada (un listado de directorios o un parámetro no validado) puede ser el eslabón inicial de una cadena que compromete el entorno operacional de una infraestructura crítica.</p>
+            <p>La lección central es que proteger sistemas críticos exige pensar más allá del hallazgo técnico individual. La seguridad efectiva requiere integrar controles técnicos estrictos (autorización a nivel de objetos, validación de inputs del lado del servidor, firma digital de <em>firmware</em> y mínimo privilegio) junto con un marco sólido de gobernanza, planes de comunicación de crisis y protocolos de respuesta a incidentes para mitigar tanto el impacto operacional como el reputacional.</p>
         </section>
 
     </main>
 
-    <!-- PIE DE PÁGINA -->
+    <!-- PIE DE PÁGINA (FOOTER) -->
     <footer>
         <p>&copy; 2026 Erik Del Angel Arriaga Torres. Fundamentos de Ciberseguridad.</p>
         <p>UPSLP</p>
