@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 15 - Análisis de Metadatos - Seguridad Informática</title>
+    <!-- Favicon de la página -->
+    <link rel="icon" type="image/jpeg" href="favicon.jpg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <!-- FONDO ANIMADO DE CRISTALES HEXTECH -->
+    <ul class="bubbles">
+        <li></li><li></li><li></li><li></li>
+        <li></li><li></li><li></li><li></li>
+    </ul>
+
+    <main>
+        <!-- Botón para regresar al Parcial 2 -->
+        <div style="margin-bottom: 20px;">
+            <a href="parcial2.html" class="back-link">← Volver al Parcial 2</a>
+        </div>
+
+        <div class="parcial-header">
+            <h1 class="hex-title">Actividad 15</h1>
+            <p class="hex-subtitle">"Actividad 11. La fotografía como testigo: Extracción de metadatos GPS"</p>
+        </div>
+
+        <!-- BOTÓN DE DESCARGA PDF -->
+        <div style="text-align: center; margin-bottom: 40px;">
+            <!-- Asegúrate de que tu archivo se llame exactamente así, o cámbialo si es necesario -->
+            <a href="Actividad15.pdf" download class="btn-hextech">
+                <span class="gold-accent">↓</span> Descargar Reporte (PDF)
+            </a>
+        </div>
+
+        <!-- RECUADROS DE LA PRÁCTICA -->
+        <section>
+            <h2>Contexto y Objetivo</h2>
+            <p>A diferencia de otras prácticas enfocadas en explotación de redes, este ejercicio consistió en un análisis forense digital enfocado en la extracción, interpretación y sanitización de metadatos sobre archivos de muestra.</p>
+            <p><strong>Objetivo Principal:</strong> Extraer y analizar metadatos de dos archivos de origen (un documento <code>.docx</code> de INTERPOL y una fotografía <code>.jpg</code> tomada con un Xiaomi Mi A2 Lite) para obtener información de autoría, historial de edición, parámetros técnicos de captura y coordenadas GPS. Como fase final, se aplicaron técnicas de limpieza para eliminar cualquier rastro de metadatos de la imagen.</p>
+        </section>
+
+        <section>
+            <h2>Metodología y Herramientas</h2>
+            <p>El análisis se realizó de forma local sin requerir conexión a servicios externos para la extracción, utilizando la línea de comandos para interactuar directamente con la estructura interna de los archivos:</p>
+            <ul>
+                <li><strong>ExifTool 12.68:</strong> Herramienta principal de línea de comandos (<code>exiftool.exe</code>) para lectura, escritura y manipulación de metadatos.</li>
+                <li><strong>Símbolo del sistema (CMD):</strong> Entorno de ejecución en Windows.</li>
+                <li><strong>Google Maps / Navegador:</strong> Herramienta de inteligencia de fuentes abiertas (OSINT) utilizada para interpretar y geolocalizar las coordenadas GPS extraídas.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Desarrollo del Análisis Forense</h2>
+            <p>El flujo de trabajo se dividió en las siguientes fases de auditoría de información:</p>
+            <ol>
+                <li><strong>Análisis Ofimático (DOCX):</strong> Se ejecutó ExifTool sobre el archivo <code>WOA database application form.docx</code>. Se extrajo información sensible de autoría, fechas de creación, software utilizado y el historial de modificaciones del documento.</li>
+                <li><strong>Análisis Fotográfico (JPEG):</strong> Se analizó el archivo <code>XiaomiMiA2Lite.jpg</code>, logrando extraer no solo los parámetros técnicos de la cámara (modelo, exposición, lente), sino también las etiquetas EXIF de geolocalización.</li>
+                <li><strong>Traducción y Geolocalización:</strong> Las coordenadas extraídas en formato de Grados, Minutos y Segundos (DMS) fueron procesadas y convertidas a formato decimal. Posteriormente, se introdujeron en Google Maps para determinar la ubicación física aproximada de la captura.</li>
+                <li><strong>Sanitización de Datos (OPSEC):</strong> Para demostrar el proceso de protección de privacidad, se utilizó ExifTool con comandos de sobreescritura (<code>-all=</code>) para eliminar completamente todos los metadatos EXIF y GPS del archivo de imagen, generando una copia limpia y segura para su distribución.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Conclusiones y Visión Profesional</h2>
+            <p>Este proyecto evidencia que los metadatos son una espada de doble filo: actúan como una fuente de evidencia digital extremadamente poderosa para investigaciones forenses, pero representan un riesgo crítico de privacidad y seguridad operacional (OPSEC) para usuarios y organizaciones.</p>
+            <p>Como futuro ingeniero en ciberseguridad, dominar herramientas como ExifTool me permite comprender la huella digital invisible que dejamos en nuestros archivos. Refuerza la importancia de auditar siempre los metadatos al analizar evidencias y, de igual manera, establecer protocolos de sanitización antes de compartir documentos institucionales o fotografías, evitando así la filtración accidental de información sensible (como la ubicación física de instalaciones o personal).</p>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA (FOOTER) -->
+    <footer>
+        <p>&copy; 2026 Erik Del Angel Arriaga Torres. Fundamentos de Ciberseguridad.</p>
+        <p>UPSLP</p>
+    </footer>
+
+</body>
+</html>
