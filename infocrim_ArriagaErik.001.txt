@@ -1,0 +1,49 @@
+﻿Created By AccessData® FTK® Imager 4.3.1.1 
+
+Case Information: 
+Acquired using: ADI4.3.1.1
+Case Number: InfoCrim-01_21.11.2023
+Evidence Number: 00 (Original Adq).
+Unique description: CNO IV - análisis de incidente de fraude bancario.
+Examiner: Arriaga Torres Erik Del Angel
+Notes: Adquisición realizada en LIF de la UPSLP.
+
+--------------------------------------------------------------
+
+Information for C:\Users\Arria_fa41996\OneDrive\Escritorio\InfoCrim13\infocrim_ArriagaErik:
+
+Physical Evidentiary Item (Source) Information:
+[Device Info]
+ Source Type: Physical
+[Drive Geometry]
+ Cylinders: 948
+ Tracks per Cylinder: 255
+ Sectors per Track: 63
+ Bytes per Sector: 512
+ Sector Count: 15,240,576
+[Physical Drive Information]
+ Drive Model: Kingston DataTraveler 2.0 USB Device
+ Drive Serial Number: 0E0D22408819
+ Drive Interface Type: USB
+ Removable drive: True
+ Source data size: 7441 MB
+ Sector count:    15240576
+[Computed Hashes]
+ MD5 checksum:    0698ff90e0e5928108ed276ae04511a2
+ SHA1 checksum:   f106535c97e3ff44e8f5b3501d9252223e3558f9
+
+Image Information:
+ Acquisition started:   Sun Nov  8 15:20:24 2026
+ Acquisition finished:  Sun Nov  8 15:28:12 2026
+ Segment list:
+  C:\Users\Arria_fa41996\OneDrive\Escritorio\InfoCrim13\infocrim_ArriagaErik.001
+  C:\Users\Arria_fa41996\OneDrive\Escritorio\InfoCrim13\infocrim_ArriagaErik.002
+  C:\Users\Arria_fa41996\OneDrive\Escritorio\InfoCrim13\infocrim_ArriagaErik.003
+  C:\Users\Arria_fa41996\OneDrive\Escritorio\InfoCrim13\infocrim_ArriagaErik.004
+  C:\Users\Arria_fa41996\OneDrive\Escritorio\InfoCrim13\infocrim_ArriagaErik.005
+
+Image Verification Results:
+ Verification started:  Sun Nov  8 15:28:13 2026
+ Verification finished: Sun Nov  8 15:28:35 2026
+ MD5 checksum:    0698ff90e0e5928108ed276ae04511a2 : verified
+ SHA1 checksum:   f106535c97e3ff44e8f5b3501d9252223e3558f9 : verified

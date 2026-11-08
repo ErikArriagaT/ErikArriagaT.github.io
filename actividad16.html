@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 16 - Adquisición Forense - Seguridad Informática</title>
+    <!-- Favicon de la página -->
+    <link rel="icon" type="image/jpeg" href="favicon.jpg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <!-- FONDO ANIMADO DE CRISTALES HEXTECH -->
+    <ul class="bubbles">
+        <li></li><li></li><li></li><li></li>
+        <li></li><li></li><li></li><li></li>
+    </ul>
+
+    <main>
+        <!-- Botón para regresar al Parcial 2 -->
+        <div style="margin-bottom: 20px;">
+            <a href="parcial3.html" class="back-link">← Volver al Parcial 3</a>
+        </div>
+
+        <div class="parcial-header">
+            <h1 class="hex-title">Actividad 16</h1>
+            <p class="hex-subtitle">"La verdad en los bits: Adquisición forense con FTK Imager"</p>
+        </div>
+
+        <!-- BOTONES DE DESCARGA (PDF y TXT) -->
+        <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 40px; flex-wrap: wrap;">
+            <!-- Si subes tu reporte en Word, cambia Act16.pdf por Act16.docx -->
+            <a href="ArriagaTorresErikDelAngel_Act16.pdf" download class="btn-hextech">
+                <span class="gold-accent">↓</span> Descargar Reporte (PDF)
+            </a>
+            <a href="infocrim_ArriagaErik.001.txt" download class="btn-hextech">
+                <span class="gold-accent">↓</span> Descargar Log Forense (.txt)
+            </a>
+        </div>
+
+        <!-- RECUADROS DE LA PRÁCTICA -->
+        <section>
+            <h2>Contexto y Objetivo</h2>
+            <p>La preservación de la evidencia digital es el pilar de cualquier investigación pericial. A diferencia de las auditorías ofensivas, este laboratorio se centró en la respuesta a incidentes y el análisis forense (Blue Team / Forensics).</p>
+            <p><strong>Objetivo Principal:</strong> Realizar la adquisición forense <em>bit a bit</em> de un medio de almacenamiento (memoria USB) utilizando FTK Imager. Se buscó crear una imagen en formato <em>Raw (dd)</em>, documentar rigurosamente la cadena de custodia virtual, y verificar la integridad de la evidencia mediante algoritmos de hashing criptográfico para asegurar que el original no sufriera alteraciones.</p>
+        </section>
+
+        <section>
+            <h2>Herramientas Utilizadas</h2>
+            <p>El proceso se ejecutó en un entorno controlado, garantizando la inmutabilidad de la unidad de origen:</p>
+            <ul>
+                <li><strong>AccessData FTK Imager 4.3.1.1:</strong> Plataforma estándar en la industria para la visualización y adquisición de imágenes forenses.</li>
+                <li><strong>Medio de Evidencia:</strong> Memoria USB (Kingston DataTraveler 2.0 – 7GB) montada como unidad física.</li>
+                <li><strong>Sistemas Base:</strong> Explorador de archivos de Windows para validación de los artefactos generados (<code>.001</code> y <code>.txt</code>).</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Desarrollo de la Adquisición (Metodología)</h2>
+            <p>La obtención de la imagen siguió un protocolo pericial estricto para garantizar su admisibilidad técnica:</p>
+            <ol>
+                <li><strong>Preparación y Selección:</strong> Se conectó la unidad al sistema y se montó exclusivamente en modo de lectura. En FTK Imager, se seleccionó el dispositivo desde su origen físico (<em>Physical Drive</em>).</li>
+                <li><strong>Documentación del Caso:</strong> Previo a la extracción, se ingresaron los metadatos de la investigación (<em>Case Number, Evidence Number, Examiner, Notes</em>) para mantener el rastro de auditoría.</li>
+                <li><strong>Creación de Imagen:</strong> Se configuró el destino para generar un archivo en formato <strong>Raw (dd)</strong>, fragmentado si fuera necesario, asegurando una copia exacta a nivel de sector.</li>
+                <li><strong>Extracción y Registro de Tiempos:</strong> Se ejecutó la adquisición, registrando automáticamente las marcas de tiempo (<em>timestamps</em>) de inicio y término del proceso de clonado.</li>
+                <li><strong>Verificación de Integridad:</strong> Una vez finalizada la extracción, el software computó los <em>hashes</em> de la unidad origen y los comparó contra los de la imagen resultante para certificar matemáticamente que son idénticos.</li>
+            </ol>
+            
+            <h3 style="color: var(--cyan-glow); margin-top: 20px; font-size: 1.1rem;">Hallazgos Técnicos y Verificación</h3>
+            <ul style="list-style-type: none; padding-left: 0;">
+                <li><span class="gold-accent">✦</span> <strong>Sectores leídos:</strong> 15,240,576</li>
+                <li><span class="gold-accent">✦</span> <strong>MD5 Hash:</strong> <code>0698ff90e0e5928108ed276ae04511a2</code> <strong style="color: #0ac8b9;">(Match Validado)</strong></li>
+                <li><span class="gold-accent">✦</span> <strong>SHA-1 Hash:</strong> <code>f106535c97e3ff44e8f5b3501d9252223e3558f9</code> <strong style="color: #0ac8b9;">(Match Validado)</strong></li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Conclusiones y Visión Profesional</h2>
+            <p>Este ejercicio técnico me dejó sumamente claro que la fase de adquisición es la columna vertebral de cualquier investigación forense digital. Un solo bit alterado invalida la evidencia. Aprendí a utilizar FTK Imager para realizar copias <em>bit a bit</em>, documentar metadatos esenciales y respaldar la integridad del proceso mediante hashes MD5 y SHA-1.</p>
+            <p>Como futuro ingeniero en ciberseguridad, esta práctica refuerza una regla de oro en el manejo de incidentes: <strong>siempre se debe trabajar sobre copias forenses, nunca sobre el medio original</strong>. Solo de esta manera se garantiza que la evidencia sea admisible, confiable y reproducible en un entorno legal o corporativo.</p>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA (FOOTER) -->
+    <footer>
+        <p>&copy; 2026 Erik Del Angel Arriaga Torres. Fundamentos de Ciberseguridad.</p>
+        <p>UPSLP</p>
+    </footer>
+
+</body>
+</html>
