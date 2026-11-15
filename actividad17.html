@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 17 - Análisis de Memoria RAM - Seguridad Informática</title>
+    <!-- Favicon de la página -->
+    <link rel="icon" type="image/jpeg" href="favicon.jpg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <!-- FONDO ANIMADO DE CRISTALES HEXTECH -->
+    <ul class="bubbles">
+        <li></li><li></li><li></li><li></li>
+        <li></li><li></li><li></li><li></li>
+    </ul>
+
+    <main>
+        <!-- Botón para regresar al Parcial 2 -->
+        <div style="margin-bottom: 20px;">
+            <a href="parcial3.html" class="back-link">← Volver al Parcial 3</a>
+        </div>
+
+        <div class="parcial-header">
+            <h1 class="hex-title">Actividad 17</h1>
+            <p class="hex-subtitle">"La memoria del crimen: extracción de evidencia de un volcado RAM"</p>
+        </div>
+
+        <!-- BOTÓN DE DESCARGA PDF -->
+        <div style="text-align: center; margin-bottom: 40px;">
+            <!-- Asegúrate de que tu archivo se llame exactamente así, o cámbialo si es necesario -->
+            <a href="Actividad17.pdf" download class="btn-hextech">
+                <span class="gold-accent">↓</span> Descargar Reporte Forense (PDF)
+            </a>
+        </div>
+
+        <!-- RECUADROS DE LA PRÁCTICA -->
+        <section>
+            <h2>Contexto y Objetivo</h2>
+            <p>El análisis de memoria volátil (RAM) es crítico en investigaciones de cibercrimen, ya que permite extraer artefactos y evidencias que no residen en el disco duro, como conexiones de red activas, procesos maliciosos en ejecución y contraseñas en texto plano.</p>
+            <p><strong>Objetivo Principal:</strong> Analizar el volcado de memoria de un caso práctico (<code>OtterCTF.vmem</code>) relacionado con un presunto cibercriminal utilizando el <em>framework</em> Volatility. La meta fue desarrollar habilidades forenses prácticas para identificar evidencia digital, correlacionar indicadores de compromiso y reconstruir las actividades del usuario.</p>
+        </section>
+
+        <section>
+            <h2>Herramientas Utilizadas</h2>
+            <p>El análisis se realizó en un entorno local seguro utilizando herramientas de línea de comandos para la inspección profunda de la memoria:</p>
+            <ul>
+                <li><strong>Volatility 2.6:</strong> Versión <em>standalone</em> para Windows, estándar en la industria para el análisis forense de memoria RAM.</li>
+                <li><strong>Símbolo del Sistema (CMD):</strong> Entorno de ejecución utilizando tuberías de comandos (<em>pipes</em>) y <code>findstr</code> para filtrado de cadenas.</li>
+                <li><strong>OSINT / Navegador Web:</strong> Verificación de inteligencia de fuentes abiertas para rastreo de carteras de Bitcoin y geolocalización.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Metodología de Adquisición y Hallazgos</h2>
+            <p>El peritaje del archivo <code>OtterCTF.vmem</code> siguió una metodología estructurada de extracción de artefactos, empleando múltiples <em>plugins</em> de Volatility:</p>
+            <ol>
+                <li><strong>Identificación del Perfil:</strong> Se utilizó el plugin <code>imageinfo</code> para determinar el perfil del sistema operativo objetivo (<em>Windows 7 SP1 x64</em>) y la marca de tiempo de la captura (<em>2018-08-04 22:34:22 +0300</em>).</li>
+                <li><strong>Extracción de Credenciales:</strong> Mediante <code>hashdump</code> y <code>lsadump</code>, se logró recuperar la contraseña en texto plano del usuario principal (<em>Rick</em>): <code>MortyIsReallyAnotter</code>.</li>
+                <li><strong>Análisis de Red y Registro:</strong> El plugin <code>netscan</code> reveló una conexión activa desde la IP local (<em>192.168.202.131</em>) hacia un servidor remoto malicioso (<em>77.102.199.102:7575</em>). Simultáneamente, con <code>hivelist</code> y <code>printkey</code>, se identificó el nombre del equipo: <code>WIN-LO6FAF3DTFE</code>.</li>
+                <li><strong>Inspección de Procesos:</strong> A través de <code>pslist</code>, se identificaron procesos legítimos como <em>BitTorrent.exe</em> y <em>LunarMS.exe</em>, aislando un proceso anómalo con el <strong>PID 3720</strong>.</li>
+                <li><strong>Artefactos de Navegación y Portapapeles:</strong> El uso combinado de <code>filescan</code>, <code>dumpfiles</code> y <code>clipboard</code> permitió reconstruir el historial de Chrome, identificando las cuentas de correo <em>rickopicko@mail.com</em> / <em>rickypinky@mail.com</em> y la contraseña <code>M@il_Pr0vid0rs</code> expuesta en el portapapeles.</li>
+                <li><strong>Volcado de Proceso y Análisis de Cadenas:</strong> Se extrajo el espacio de memoria exclusivo del proceso malicioso (PID 3720) utilizando <code>memdump</code>. Mediante la búsqueda de cadenas (<em>strings</em>), se logró recuperar una cartera de criptomonedas (Bitcoin): <code>1MmpEmebJKqXG8nQv4cjJSmxZQFVVmFo63M</code>.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Conclusiones y Visión Profesional</h2>
+            <p>Este laboratorio demostró contundentemente que el análisis de memoria volátil es una técnica irremplazable en la respuesta a incidentes. Permite materializar evidencias efímeras que un análisis forense de disco duro tradicional pasaría por alto (como credenciales sin cifrar, inyecciones en memoria y conexiones de red en tiempo real).</p>
+            <p>Como futuro ingeniero en ciberseguridad, esta práctica reafirmó la importancia de la minuciosidad pericial: documentar cada comando ejecutado, correlacionar lógicamente los hallazgos técnicos con el contexto del incidente y preservar celosamente la integridad de la evidencia durante todo el ciclo de vida del análisis.</p>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA (FOOTER) -->
+    <footer>
+        <p>&copy; 2026 Erik Del Angel Arriaga Torres. Fundamentos de Ciberseguridad.</p>
+        <p>UPSLP</p>
+    </footer>
+
+</body>
+</html>
