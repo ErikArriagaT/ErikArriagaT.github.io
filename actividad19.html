@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 19 - Live Forensics - Seguridad Informática</title>
+    <!-- Favicon de la página -->
+    <link rel="icon" type="image/jpeg" href="favicon.jpg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <!-- FONDO ANIMADO DE CRISTALES HEXTECH -->
+    <ul class="bubbles">
+        <li></li><li></li><li></li><li></li>
+        <li></li><li></li><li></li><li></li>
+    </ul>
+
+    <main>
+        <!-- Botón para regresar al Parcial 2 -->
+        <div style="margin-bottom: 20px;">
+            <a href="parcial3.html" class="back-link">← Volver al Parcial 3</a>
+        </div>
+
+        <div class="parcial-header">
+            <h1 class="hex-title">Actividad 19</h1>
+            <p class="hex-subtitle">"Los primeros minutos cuentan: adquisición forense en escenas del crimen digital"</p>
+        </div>
+
+        <!-- BOTÓN DE DESCARGA PDF -->
+        <div style="text-align: center; margin-bottom: 40px;">
+            <!-- Asegúrate de que tu archivo de reporte se llame así -->
+            <a href="ArriagaTorresErikDelAngel_Act19.pdf" download class="btn-hextech">
+                <span class="gold-accent">↓</span> Descargar Reporte (PDF)
+            </a>
+        </div>
+
+        <!-- RECUADROS DE LA PRÁCTICA -->
+        <section>
+            <h2>Contexto y Objetivo</h2>
+            <p>En el ámbito de la respuesta a incidentes (Incident Response), apagar un equipo comprometido puede significar la pérdida irremediable de evidencia crítica. La adquisición en caliente (<em>Live Forensics</em>) es fundamental para preservar el estado actual del sistema.</p>
+            <p><strong>Objetivo Principal:</strong> Simular una situación real de respuesta a incidentes aplicando técnicas de recolección de evidencia digital sobre un sistema en ejecución. El propósito es desarrollar destreza en el uso de comandos nativos para recopilar información volátil, documentar rigurosamente el proceso y fomentar el análisis crítico de los artefactos obtenidos.</p>
+        </section>
+
+        <section>
+            <h2>Herramientas Utilizadas</h2>
+            <p>Para garantizar la menor alteración posible del entorno (principio de mínima intrusión), no se emplearon herramientas forenses de terceros. El análisis se basó íntegramente en binarios nativos del sistema:</p>
+            <ul>
+                <li><strong>Interfaces de Línea de Comandos:</strong> Símbolo del Sistema (CMD) y Windows PowerShell.</li>
+                <li><strong>Comandos Nativos de Windows:</strong> <code>date</code>, <code>time</code>, <code>tasklist</code>, <code>net start</code>, <code>query user</code>, <code>net user</code>, <code>ipconfig</code>, <code>nbtstat</code>, <code>netstat</code>, <code>arp</code>, <code>netsh</code>, <code>doskey</code>, <code>net use</code>, <code>systeminfo</code>, <code>schtasks</code>, <code>wevtutil</code>, <code>dir</code>.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Metodología de Adquisición Volátil</h2>
+            <p>Se realizó el triaje y la adquisición en un sistema objetivo <strong>Windows 11 Pro (ZANGETSUPC)</strong> siguiendo un orden de volatilidad estricto (desde lo más efímero hasta lo persistente):</p>
+            <ol>
+                <li><strong>Establecimiento de Línea de Tiempo:</strong> Registro inmediato de la fecha y hora del sistema local (<code>date /t</code>, <code>time /t</code>).</li>
+                <li><strong>Memoria y Procesos:</strong> Volcado del listado de procesos en ejecución (<code>tasklist</code>) y comparación de servicios activos contrastando salidas de CMD (<code>net start</code>) frente a PowerShell (<code>Get-Service</code>).</li>
+                <li><strong>Usuarios y Sesiones:</strong> Identificación de cuentas con sesión activa (<code>query user</code>) y auditoría del histórico de usuarios locales (<code>net user</code>).</li>
+                <li><strong>Conectividad y Red:</strong> Recolección de configuración de red (<code>ipconfig /all</code>), nombres NetBIOS (<code>nbtstat -n</code>), tabla de enrutamiento/ARP (<code>arp -a</code>) y mapeo de conexiones activas vinculadas a sus respectivos PID (<code>netstat -ano</code> / <code>netstat -anob</code>).</li>
+                <li><strong>Artefactos de Navegación e Historiales:</strong> Extracción de la caché de resolución DNS (<code>ipconfig /displaydns</code>), perfiles de redes WiFi almacenados (<code>netsh wlan show profiles</code>) y el historial de comandos de la sesión actual (<code>doskey /history</code>).</li>
+                <li><strong>Persistencia y Recursos:</strong> Verificación de unidades mapeadas y recursos compartidos (<code>net use</code>, <code>net share</code>), auditoría de tareas programadas (<code>schtasks /query</code>) e inspección de integridad del archivo <em>hosts</em>.</li>
+                <li><strong>Logs y Sistema de Archivos:</strong> Obtención de metadatos del OS (<code>systeminfo</code>), exportación de bitácoras de eventos de Windows (<code>wevtutil epl</code>) y generación de un árbol de directorios ordenado por fecha de creación (<code>dir /T:C</code>).</li>
+            </ol>
+            
+            <h3 style="color: var(--cyan-glow); margin-top: 20px; font-size: 1.1rem;">Hallazgos Clave de la Inspección</h3>
+            <ul style="list-style-type: none; padding-left: 0;">
+                <li><span class="gold-accent">✦</span> <strong>Estado del Sistema:</strong> Windows 11 Pro validado como "limpio" (sin compromisos evidentes) durante esta captura.</li>
+                <li><span class="gold-accent">✦</span> <strong>Usuario Activo Identificado:</strong> <code>Arria_fa41996</code></li>
+                <li><span class="gold-accent">✦</span> <strong>Direccionamiento IP:</strong> <code>192.168.0.24</code></li>
+                <li><span class="gold-accent">✦</span> <strong>Anomalías:</strong> Recursos compartidos limitados a los administrativos por defecto (IPC$, C$, ADMIN$); archivo <em>hosts</em> sin manipulaciones para redirecciones maliciosas.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Conclusiones y Visión Profesional</h2>
+            <p>Este ejercicio técnico me dejó sumamente claro que los primeros minutos son absolutamente críticos en una respuesta a incidentes (DFIR). La adquisición en caliente (<em>Live Forensics</em>) es el único método para capturar evidencia efímera —como procesos inyectados, conexiones de red activas o malware residente solo en memoria— que desaparecería permanentemente si se apaga el equipo.</p>
+            <p>Como futuro ingeniero en ciberseguridad, esta práctica fortaleció mi disciplina pericial: comprendí la importancia de documentar cada comando emitido, validar las salidas cruzando herramientas (CMD vs PowerShell) para evitar sesgos, y preservar celosamente la cadena de custodia. Finalmente, aprendí que incluso un sistema aparentemente "limpio" alberga cientos de artefactos valiosos que establecen una línea base esencial para cualquier investigación profunda.</p>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA (FOOTER) -->
+    <footer>
+        <p>&copy; 2026 Erik Del Angel Arriaga Torres. Fundamentos de Ciberseguridad.</p>
+        <p>UPSLP</p>
+    </footer>
+
+</body>
+</html>
