@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad 18 - Análisis con Autopsy - Seguridad Informática</title>
+    <!-- Favicon de la página -->
+    <link rel="icon" type="image/jpeg" href="favicon.jpg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <!-- FONDO ANIMADO DE CRISTALES HEXTECH -->
+    <ul class="bubbles">
+        <li></li><li></li><li></li><li></li>
+        <li></li><li></li><li></li><li></li>
+    </ul>
+
+    <main>
+        <!-- Botón para regresar al Parcial 2 -->
+        <div style="margin-bottom: 20px;">
+            <a href="parcial3.html" class="back-link">← Volver al Parcial 3</a>
+        </div>
+
+        <div class="parcial-header">
+            <h1 class="hex-title">Actividad 18</h1>
+            <p class="hex-subtitle">"La investigación forense: la huella digital de un cibercriminal"</p>
+        </div>
+
+        <!-- BOTÓN DE DESCARGA PDF -->
+        <div style="text-align: center; margin-bottom: 40px;">
+            <!-- Asegúrate de que tu archivo de reporte se llame exactamente así -->
+            <a href="ArriagaTorresErikDelAngel_Act18.pdf" download class="btn-hextech">
+                <span class="gold-accent">↓</span> Descargar Reporte Forense (PDF)
+            </a>
+        </div>
+
+        <!-- RECUADROS DE LA PRÁCTICA -->
+        <section>
+            <h2>Contexto y Objetivo</h2>
+            <p>El análisis de imágenes forenses requiere plataformas especializadas capaces de procesar grandes volúmenes de datos sin alterar la evidencia subyacente. Este laboratorio se centra en la resolución de un incidente de seguridad utilizando material de referencia estándar de la industria.</p>
+            <p><strong>Objetivo Principal:</strong> Familiarizar al analista con el framework Autopsy para el procesamiento de imágenes forenses, desarrollando habilidades prácticas en la investigación de incidentes. Se busca comprender a profundidad la importancia de la cadena de custodia y aplicar estos conocimientos para resolver un caso práctico real extraído del <em>Computer Forensic Reference Data Sets</em> (CFReDS Hacking Case).</p>
+        </section>
+
+        <section>
+            <h2>Herramientas Utilizadas</h2>
+            <p>El entorno de auditoría se configuró para garantizar el manejo adecuado de las evidencias digitales segmentadas:</p>
+            <ul>
+                <li><strong>Autopsy 4.23.1:</strong> Plataforma forense de código abierto para el análisis integral de discos y volúmenes.</li>
+                <li><strong>Visor de Registro Integrado:</strong> Módulo de Autopsy empleado para la extracción de claves (hives) de Windows (SOFTWARE, SYSTEM).</li>
+                <li><strong>Material de Evidencia:</strong> Imagen forense CFReDS Hacking Case (SCHARDT), provista en formato segmentado.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Metodología de Análisis</h2>
+            <p>Se realizó el peritaje de la imagen SCHARDT aplicando el siguiente flujo de trabajo forense:</p>
+            <ol>
+                <li><strong>Preparación de la Evidencia:</strong> Descarga, verificación y consolidación de la imagen forense segmentada (desde <code>SCHARDT.001</code> hasta <code>SCHARDT.008</code>).</li>
+                <li><strong>Apertura del Expediente:</strong> Creación del caso dentro de Autopsy bajo el identificador oficial <code>INV01UPSLP</code>, configurando los metadatos de la investigación.</li>
+                <li><strong>Ingesta de Datos:</strong> Importación de la imagen como origen de datos tipo <em>"Disk Image or VM File"</em>, asegurando el cálculo del Hash MD5 para mantener la integridad pericial.</li>
+                <li><strong>Auditoría del Registro:</strong> Extracción y análisis de las colmenas del Registro de Windows (<code>SOFTWARE</code> y <code>SYSTEM</code>) para reconstruir el perfil del sistema y la información de red.</li>
+                <li><strong>Inspección de Usuarios:</strong> Revisión exhaustiva de los perfiles de usuario alojados en el directorio <code>Documents and Settings</code>, en busca de configuraciones, historiales y documentos incriminatorios.</li>
+                <li><strong>Identificación de Artefactos:</strong> Búsqueda orientada a localizar herramientas maliciosas, binarios sospechosos y rastros de ejecución que confirmaran la actividad del atacante.</li>
+            </ol>
+            
+            <h3 style="color: var(--cyan-glow); margin-top: 20px; font-size: 1.1rem;">Hallazgos Clave de la Investigación</h3>
+            <ul style="list-style-type: none; padding-left: 0;">
+                <li><span class="gold-accent">✦</span> <strong>Sistema Operativo Base:</strong> Windows XP (5.1, build 2600).</li>
+                <li><span class="gold-accent">✦</span> <strong>Nombre del Equipo (NetBIOS):</strong> <code>N-1A9ODN6ZXK4LQ</code></li>
+                <li><span class="gold-accent">✦</span> <strong>Propietario Registrado:</strong> Greg Schardt.</li>
+                <li><span class="gold-accent">✦</span> <strong>Cuenta de Usuario Sospechosa:</strong> <code>Mr. Evil</code></li>
+                <li><span class="gold-accent">✦</span> <strong>Zona Horaria del Sistema:</strong> America/Mexico_City.</li>
+                <li><span class="gold-accent">✦</span> <strong>Artefactos Relevantes:</strong> Identificación del software <em>Ethereal</em> (un sniffer de red heredado, precursor de Wireshark) instalado dentro del perfil del usuario, indicativo de posible interceptación de tráfico.</li>
+                <li><span class="gold-accent">✦</span> <strong>Integridad:</strong> Hash MD5 de la imagen procesado y almacenado correctamente en la base de datos del caso.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Conclusiones y Visión Profesional</h2>
+            <p>Este laboratorio representó una oportunidad invaluable para aplicar técnicas de análisis forense digital en un entorno realista. Logré extraer información crítica directamente de las estructuras internas del Registro de Windows, identificar cuentas de usuario involucradas y correlacionar de manera lógica los artefactos de software (como el sniffer de red) con el escenario del incidente.</p>
+            <p>Como futuro ingeniero en ciberseguridad, esta práctica reforzó mi comprensión de la rigurosidad pericial. Documentar cada paso, garantizar que los hashes de la evidencia coincidan y utilizar plataformas forenses como Autopsy son competencias vitales para reconstruir fielmente la actividad de un cibercriminal y asegurar que los hallazgos sean admisibles en cualquier proceso judicial o corporativo.</p>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA (FOOTER) -->
+    <footer>
+        <p>&copy; 2026 Erik Del Angel Arriaga Torres. Fundamentos de Ciberseguridad.</p>
+        <p>UPSLP</p>
+    </footer>
+
+</body>
+</html>
