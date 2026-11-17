@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto 03 - Operación Narcos - Seguridad Informática</title>
+    <!-- Favicon de la página -->
+    <link rel="icon" type="image/jpeg" href="favicon.jpg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <!-- FONDO ANIMADO DE CRISTALES HEXTECH -->
+    <ul class="bubbles">
+        <li></li><li></li><li></li><li></li>
+        <li></li><li></li><li></li><li></li>
+    </ul>
+
+    <main>
+        <!-- Botón para regresar a Proyectos -->
+        <div style="margin-bottom: 20px;">
+            <a href="tproyecto.html" class="back-link">← Volver a Proyectos</a>
+        </div>
+
+        <div class="parcial-header">
+            <h1 class="hex-title">Proyecto 03</h1>
+            <p class="hex-subtitle">"PR03. Operación narcos: expediente Kowhai"</p>
+        </div>
+
+        <!-- BOTÓN DE DESCARGA -->
+        <div style="text-align: center; margin-bottom: 40px;">
+            <!-- Ajusta el nombre del archivo de acuerdo a tu entregable (PDF o ZIP) -->
+            <a href="ArriagaTorresErikDelAngel_PR03.pdf" download class="btn-hextech">
+                <span class="gold-accent">↓</span> Descargar Informe Forense
+            </a>
+        </div>
+
+        <!-- SECCIONES DE INFORMACIÓN -->
+        <section>
+            <h2>Contexto y Objetivo</h2>
+            <p>La investigación de dispositivos involucrados en el crimen organizado requiere un enfoque pericial minucioso para aislar datos incriminatorios entre miles de archivos legítimos. Este proyecto se basó en el escenario forense <em>Digital Corpora – Narcos (2019)</em>.</p>
+            <p><strong>Objetivo Principal:</strong> Analizar una imagen forense del equipo perteneciente a Steve Kowhai para identificar evidencia digital relevante, reconstruir la línea de tiempo de los acontecimientos y determinar los vínculos lógicos entre el dispositivo y las actividades de tráfico de sustancias investigadas. El eje central fue dictaminar, mediante evidencia irrefutable, qué acciones específicas podían demostrarse a partir del análisis del disco.</p>
+        </section>
+
+        <section>
+            <h2>Herramientas Utilizadas</h2>
+            <p>El procesamiento y extracción de la evidencia se ejecutó en un entorno forense controlado:</p>
+            <ul>
+                <li><strong>Autopsy 4.23.1:</strong> Plataforma principal para la ingesta, indexación y análisis de la imagen de disco.</li>
+                <li><strong>Visor de Registro de Autopsy:</strong> Análisis en profundidad de las colmenas (<em>hives</em>) de Windows.</li>
+                <li><strong>PowerShell:</strong> Interfaz de línea de comandos empleada para la validación de integridad (cálculo de hashes MD5).</li>
+                <li><strong>Evidencia Base:</strong> Imagen forense segmentada oficial <em>Narcos-1</em>.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Metodología de Análisis y Hallazgos</h2>
+            <p>El peritaje digital se llevó a cabo aplicando una metodología estructurada de extracción y correlación de artefactos:</p>
+            <ol>
+                <li><strong>Adquisición e Integridad:</strong> Extracción y verificación matemática de la imagen forense segmentada para asegurar la inmutabilidad de la evidencia.</li>
+                <li><strong>Procesamiento Inicial:</strong> Creación del expediente formal en Autopsy e importación del volumen de datos.</li>
+                <li><strong>Auditoría de Entorno:</strong> Análisis del Registro de Windows para perfilar el sistema operativo base y aislar los directorios del usuario sospechoso.</li>
+                <li><strong>Rastreo de Actividad:</strong> Revisión exhaustiva de cachés y artefactos de navegación web (Google Chrome e Internet Explorer).</li>
+                <li><strong>Extracción de Multimedia:</strong> Identificación y recuperación de imágenes clave, incluyendo reservaciones de vuelos, capturas de mapas y ubicaciones de entrega.</li>
+                <li><strong>Búsqueda de Anti-Forense:</strong> Localización de instaladores de software de cifrado y esteganografía (técnicas de ocultamiento de datos).</li>
+                <li><strong>Análisis de Aplicaciones:</strong> Identificación de artefactos de comunicación en Discord y extracción de registros de actividad del sistema (Windows Timeline).</li>
+            </ol>
+            
+            <h3 style="color: var(--cyan-glow); margin-top: 20px; font-size: 1.1rem;">Hallazgos Clave de la Investigación</h3>
+            <ul style="list-style-type: none; padding-left: 0;">
+                <li><span class="gold-accent">✦</span> <strong>Entorno del Sistema:</strong> Windows 10 Pro (build 17763).</li>
+                <li><span class="gold-accent">✦</span> <strong>Perfil Implicado:</strong> Usuario "Steve" (Ubicado en <code>C:\Users\Steve</code>).</li>
+                <li><span class="gold-accent">✦</span> <strong>Evidencia Operativa:</strong> Hallazgo de imágenes con rutas, lugares de entrega y detalles de reservaciones de vuelos.</li>
+                <li><span class="gold-accent">✦</span> <strong>Herramientas Sospechosas:</strong> Detección de ejecutables e instaladores para <em>Image Steganography</em> y <em>TrueCrypt</em>.</li>
+                <li><span class="gold-accent">✦</span> <strong>Comunicaciones y Rastros:</strong> Evidencia de uso de la plataforma Discord y recuperación de bases de datos de <code>ActivitiesCache.db</code> (Windows Timeline) que exponen el historial de acciones del usuario.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Conclusiones y Visión Profesional</h2>
+            <p>Este escenario de grado criminalístico me permitió aplicar técnicas de análisis forense digital avanzado para desentrañar las operaciones de un sospechoso real. Aprendí la importancia de la correlación de artefactos multiplataforma (imágenes, software anti-forense, bases de datos de actividad) para reconstruir una narrativa sólida. Uno de los mayores retos —y aprendizajes— fue aprender a diferenciar técnicamente entre la simple descarga de una herramienta, su instalación y su uso efectivo en el sistema.</p>
+            <p>Como futuro ingeniero en ciberseguridad, esta práctica consolidó mi capacidad de análisis objetivo. Comprendí que el rigor pericial exige documentar cada hallazgo con exactitud matemática, garantizar la cadena de custodia y formular hipótesis estrictamente respaldadas por los datos recuperados, evitando cualquier sobreinterpretación que pudiera invalidar la evidencia en un proceso legal.</p>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA (FOOTER) -->
+    <footer>
+        <p>&copy; 2026 Erik Del Angel Arriaga Torres. Fundamentos de Ciberseguridad.</p>
+        <p>UPSLP</p>
+    </footer>
+
+</body>
+</html>
